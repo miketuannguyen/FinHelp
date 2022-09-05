@@ -1,0 +1,132 @@
+{
+    "root": true,
+    "ignorePatterns": ["projects/**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parserOptions": {
+                "project": ["tsconfig.json"],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking",
+                "prettier",
+                "eslint-config-prettier"
+            ],
+            "plugins": ["@angular-eslint/eslint-plugin", "@typescript-eslint"],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                "indent": ["error", 4],
+                "linebreak-style": ["error", "unix"],
+                "quotes": ["error", "single"],
+                "semi": ["error", "always"],
+                "no-empty-function": "off",
+                "@typescript-eslint/no-empty-function": [
+                    "warn",
+                    {
+                        "allow": ["constructors"]
+                    }
+                ],
+                "prefer-template": "error",
+                "camelcase": [
+                    "error",
+                    {
+                        "properties": "never"
+                    }
+                ],
+                "no-var": "error",
+                "@typescript-eslint/unbound-method": [
+                    "error",
+                    {
+                        "ignoreStatic": true
+                    }
+                ],
+                "require-jsdoc": [
+                    "warn",
+                    {
+                        "require": {
+                            "FunctionDeclaration": true,
+                            "MethodDefinition": true,
+                            "ClassDeclaration": false,
+                            "ArrowFunctionExpression": true,
+                            "FunctionExpression": true
+                        }
+                    }
+                ],
+                "@angular-eslint/relative-url-prefix": "error",
+                "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+                "@typescript-eslint/explicit-module-boundary-types": "off",
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        "default": [
+                            "public-static-field",
+                            "protected-static-field",
+                            "private-static-field",
+                            "public-instance-field",
+                            "protected-instance-field",
+                            "private-instance-field",
+                            "constructor",
+                            "public-static-method",
+                            "protected-static-method",
+                            "private-static-method",
+                            "public-instance-method",
+                            "protected-instance-method",
+                            "private-instance-method"
+                        ]
+                    }
+                ],
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/no-floating-promises": "off",
+                "@typescript-eslint/no-non-null-assertion": "off",
+                "@typescript-eslint/no-parameter-properties": ["warn", { "allows": ["public", "private", "protected"] }],
+                "@typescript-eslint/no-shadow": ["error"],
+                "@typescript-eslint/no-unnecessary-condition": "error",
+                "@typescript-eslint/no-unsafe-argument": "off",
+                "@typescript-eslint/no-unsafe-assignment": "off",
+                "@typescript-eslint/no-unsafe-call": "off",
+                "@typescript-eslint/no-unsafe-member-access": "off",
+                "@typescript-eslint/prefer-nullish-coalescing": "error",
+                "@typescript-eslint/prefer-optional-chain": "error",
+                "arrow-body-style": "error",
+                "curly": "error",
+                "eqeqeq": ["error", "always", { "null": "ignore" }],
+                "guard-for-in": "error",
+                "no-bitwise": "error",
+                "no-caller": "error",
+                "no-console": ["error", { "allow": ["warn", "error"] }],
+                "no-eval": "error",
+                "no-labels": "error",
+                "no-new": "error",
+                "no-new-wrappers": "error",
+                "object-shorthand": ["error", "always", { "avoidExplicitReturnArrows": true }],
+                "radix": "error",
+                "spaced-comment": ["warn", "always"]
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": ["plugin:@angular-eslint/template/recommended"],
+            "rules": {}
+        }
+    ]
+}
