@@ -1,0 +1,11 @@
+$primaryColor: #1290ff;
+$errorColor: #ad000b;
+
+p.error-message {
+    color: $errorColor;
+    margin-bottom: 0;
+}
+
+.app-primary-background {
+    background-color: $primaryColor !important;
+}

@@ -1,0 +1,14 @@
+@import 'app.scss';
+
+.login-form {
+    .login-header {
+        background-color: $primaryColor;
+
+        .login-title {
+            color: white;
+            // text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0;
+        }
+    }
+}

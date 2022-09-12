@@ -1,0 +1,11 @@
+{
+    "app_name": "FinHelp",
+    "label": {
+        "username": "Username",
+        "password": "Password",
+        "submit": "Submit"
+    },
+    "validation": {
+        "required": "{{item}} is required."
+    }
+}
