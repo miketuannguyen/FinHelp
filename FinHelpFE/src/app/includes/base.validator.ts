@@ -1,6 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { CONSTANTS } from '../utils';
-import Helpers from '../utils/helpers';
+import { CONSTANTS, Helpers } from '../utils';
 
 export default class BaseValidator {
     /**

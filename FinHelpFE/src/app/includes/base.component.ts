@@ -1,5 +1,4 @@
-import { CONSTANTS } from '../utils';
-import Helpers from '../utils/helpers';
+import { CONSTANTS, Helpers } from '../utils';
 
 /** Base class of all components */
 export default class BaseComponent {
