@@ -97,6 +97,15 @@
         "spaced-comment": ["warn", "always"],
         "tsdoc/syntax": "error",
         "keyword-spacing": "error",
-        "block-spacing": "error"
+        "block-spacing": "error",
+        "@typescript-eslint/ban-types": [
+            "error",
+            {
+                "types": {
+                    "Function": false
+                },
+                "extendDefaults": true
+            }
+        ]
     }
 }
