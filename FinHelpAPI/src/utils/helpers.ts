@@ -46,4 +46,13 @@ export default class Helpers {
             return true;
         return false;
     }
+
+    /**
+     * Check if function is async or not
+     * @param obj - any function
+     * @returns - function is async or not
+     */
+    public static isAsync(obj: Function) {
+        return obj.constructor.name === 'AsyncFunction';
+    }
 }

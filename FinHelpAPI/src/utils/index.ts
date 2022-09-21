@@ -4,3 +4,4 @@ export { default as AppLogger } from './logger';
 export { default as MESSAGES } from './messages';
 export * as types from './types';
 export { default as APIResponse } from './api-response';
+export { default as Decorators } from './decorators';
