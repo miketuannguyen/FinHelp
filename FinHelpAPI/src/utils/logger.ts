@@ -60,7 +60,7 @@ export default class AppLogger {
     public static error(message: string, ...meta: any[]) {
         if (process.env.ENVIRONMENT === CONSTANTS.ENVIRONMENTS.DEV) {
             // eslint-disable-next-line no-console, @typescript-eslint/no-unsafe-argument
-            console.log(message, ...meta);
+            console.error(message, ...meta);
         }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         AppLogger.getInstance().error(message, ...meta);
