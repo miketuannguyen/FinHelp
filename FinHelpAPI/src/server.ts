@@ -12,9 +12,9 @@ if (!PORT) {
 }
 
 app.listen(PORT, () => {
-    void MySQLDatabase.createConnection()
-        .then((connection) => {
-            if (!connection) {
+    void MySQLDatabase.initDataSource()
+        .then((dataSource) => {
+            if (!dataSource) {
                 AppLogger.info('Database initialization failed.');
                 process.exit(1);
             }
