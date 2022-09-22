@@ -26,6 +26,6 @@ const CONSTANTS = {
         PROD: 'PROD',
     },
 } as const;
-
 Helpers.deepFreeze(CONSTANTS);
+
 export default CONSTANTS;

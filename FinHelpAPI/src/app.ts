@@ -1,4 +1,3 @@
-import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as expressWinston from 'express-winston';
 import * as winston from 'winston';
@@ -7,7 +6,8 @@ import { APIResponse, CONSTANTS, MESSAGES } from './utils';
 
 // ========== [START] Application setups [START] ==========
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
     expressWinston.logger({
         level: 'info',
@@ -26,7 +26,7 @@ app.use(
 app.use(ROUTES.USER.MODULE, userRouter);
 
 // The final request handler to handle all requests having undefined routes
-app.use((_, res) => res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.NOT_FOUND).json(new APIResponse(MESSAGES.ERROR.ERR_RESOURCE_NOT_FOUND)));
+app.use((_, res) => res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.NOT_FOUND).json(APIResponse.error(MESSAGES.ERROR.ERR_RESOURCE_NOT_FOUND)));
 // ========== [END] Routes handlers [END] ==========
 
 export default app;

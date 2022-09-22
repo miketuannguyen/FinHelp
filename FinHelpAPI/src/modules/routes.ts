@@ -4,8 +4,9 @@ import { Helpers } from '../utils';
 const ROUTES = {
     USER: {
         MODULE: '/user',
+        LOGIN: '/login',
     },
-};
-
+} as const;
 Helpers.deepFreeze(ROUTES);
+
 export default ROUTES;
