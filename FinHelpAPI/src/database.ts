@@ -1,18 +1,18 @@
+import { DataSource } from 'typeorm';
 import { UserEntity } from './entities';
-import { Connection, createConnection } from 'typeorm';
 import { Helpers } from './utils';
 
 export class MySQLDatabase {
-    private static _connection: Connection;
+    private static _dataSource: DataSource;
 
     /** Constructor */
     private constructor() {}
 
     /**
-     * Create MySQL connection
-     * @returns success / fail
+     * Create MySQL data source
+     * @returns MySQL data source, `null` if error
      */
-    public static async createConnection() {
+    public static async initDataSource() {
         try {
             const host = process.env.MYSQL_HOST;
             if (!Helpers.isNotBlank(host)) return null;
@@ -28,7 +28,7 @@ export class MySQLDatabase {
             const database = process.env.MYSQL_DATABASE;
             if (!Helpers.isNotBlank(database)) return null;
 
-            this._connection = await createConnection({
+            this._dataSource = await new DataSource({
                 type: 'mysql',
                 host,
                 port,
@@ -36,8 +36,8 @@ export class MySQLDatabase {
                 password,
                 database,
                 entities: [UserEntity],
-            });
-            return this._connection;
+            }).initialize();
+            return this._dataSource;
         } catch (e) {
             return null;
         }
@@ -48,6 +48,6 @@ export class MySQLDatabase {
      * @returns MySQL entity manager
      */
     public static getManager() {
-        return this._connection.manager;
+        return this._dataSource.manager;
     }
 }
