@@ -25,6 +25,8 @@ const CONSTANTS = {
         STAG: 'STAG',
         PROD: 'PROD',
     },
+    /** 10 years */
+    ACCESS_TOKEN_EXPIRED_TIME: 315360000,
 } as const;
 Helpers.deepFreeze(CONSTANTS);
 

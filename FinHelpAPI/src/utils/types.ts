@@ -1,3 +1,6 @@
+import { Request } from 'express';
+import { UserDTO } from '../dtos';
+
 /**
  * Use values of a object as a union type
  * @example
@@ -8,3 +11,22 @@
  * ```
  */
 export type ValueOf<T> = T[keyof T];
+
+/**
+ * Authenticated request has user data and JWT payload
+ */
+export type AuthenticatedRequest<
+    P = {
+        [key: string]: string;
+    },
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = qs.ParsedQs,
+    Locals extends Record<string, any> = Record<string, any>
+> = Request<P, ResBody, ReqBody, ReqQuery, Locals> & {
+    /** User data and JWT payload */
+    userPayload: UserDTO & {
+        iat?: number;
+        exp?: number;
+    };
+};

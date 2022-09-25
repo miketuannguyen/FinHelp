@@ -12,7 +12,8 @@ const MESSAGES = {
         ERR_INTERNAL_SERVER_ERROR: 'err_internal_server_error',
         ERR_NO_DATA: 'err_no_data',
         ERR_VALIDATION: 'err_validation',
-        ERR_LOGIN: 'err_login'
+        ERR_LOGIN: 'err_login',
+        ERR_UNAUTHORIZED: 'err_unauthorized'
     },
 } as const;
 
