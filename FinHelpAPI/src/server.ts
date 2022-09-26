@@ -2,6 +2,7 @@ import app from './app';
 import * as dotenv from 'dotenv';
 import { AppLogger } from './utils';
 import { MySQLDatabase } from './database';
+import { initMapper } from './dtos';
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.listen(PORT, () => {
             }
 
             AppLogger.initAppLogFolder();
+
+            initMapper();
 
             const ENVIRONMENT = process.env.ENVIRONMENT;
             if (ENVIRONMENT === 'DEV') {
