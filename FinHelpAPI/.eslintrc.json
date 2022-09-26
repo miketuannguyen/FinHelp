@@ -106,6 +106,7 @@
                 },
                 "extendDefaults": true
             }
-        ]
+        ],
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }
