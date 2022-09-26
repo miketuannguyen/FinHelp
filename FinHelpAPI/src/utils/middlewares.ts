@@ -6,6 +6,7 @@ import CONSTANTS from './constants';
 import Helpers from './helpers';
 import MESSAGES from './messages';
 import { AuthenticatedRequest } from './types';
+import UserService from '../modules/user/user.service';
 
 export default class Middlewares {
     /**
@@ -14,7 +15,7 @@ export default class Middlewares {
      * Verify access token in request headers
      */
     public static authenticate() {
-        return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+        return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
             try {
                 const { access_token: accessToken } = req.headers;
                 if (!Helpers.isNotBlank(accessToken)) {
@@ -30,6 +31,11 @@ export default class Middlewares {
 
                 const payload = jwt.verify(accessToken, secret);
                 if (!UserDTO.is(payload)) {
+                    return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));
+                }
+
+                const userDTO = await UserService.findByUsername(payload.username);
+                if (!userDTO) {
                     return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));
                 }
 

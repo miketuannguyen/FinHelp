@@ -1,4 +1,3 @@
-import { createMap } from '@automapper/core';
 import { UserDTO } from '../../dtos/';
 import { UserEntity } from '../../entities';
 import { CONSTANTS, Helpers, mapper } from '../../utils';
@@ -20,10 +19,22 @@ export default class UserService {
         if (Helpers.isEmptyObject(user)) return null;
         if (user?.password !== password) return null;
 
-        createMap(mapper, UserEntity, UserDTO);
         const userDTO = mapper.map(user, UserEntity, UserDTO);
 
         // jwt need userDTO to be plain object
         return jwt.sign({ ...userDTO }, secret, { expiresIn: CONSTANTS.ACCESS_TOKEN_EXPIRED_TIME });
+    }
+
+    /**
+     * Find user by username
+     * @param username - `m_users.username`
+     */
+    public static async findByUsername(username: string) {
+        if (!Helpers.isNotBlank(username)) return null;
+
+        const user = await UserRepository.findByUsername(username);
+        if (Helpers.isEmptyObject(user)) return null;
+
+        return mapper.map(user, UserEntity, UserDTO);
     }
 }
