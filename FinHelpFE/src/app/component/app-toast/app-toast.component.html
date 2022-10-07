@@ -1,0 +1,9 @@
+<ngb-toast
+    *ngFor="let toast of toast$.toastList; let toastIdx = index"
+    [header]="toast.header || ''"
+    [autohide]="toast.type !== 'INFO'"
+    [class]="getToastClass(toast.type)"
+    (hidden)="toast$.remove(toastIdx)"
+    (click)="toast$.remove(toastIdx)">
+    {{ toast.message }}
+</ngb-toast>

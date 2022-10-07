@@ -26,7 +26,7 @@ export default class APIResponse<T> {
      * @param message - error response message, `MESSAGES.ERROR.ERR_VALIDATION` by default
      * @param errors - validation errors
      */
-    public static error(message: ValueOf<typeof MESSAGES.ERROR> = MESSAGES.ERROR.ERR_VALIDATION, errors?: { [key: string]: string }) {
+    public static error(message: ValueOf<typeof MESSAGES.ERROR>, errors?: { [key: string]: string }) {
         const res = new APIResponse();
         res.message = message;
         res.errors = errors;

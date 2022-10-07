@@ -28,7 +28,8 @@
                         "scripts": [],
                         "stylePreprocessorOptions": {
                             "includePaths": ["src/assets/scss/"]
-                        }
+                        },
+                        "allowedCommonJsDependencies": ["qs"]
                     },
                     "configurations": {
                         "production": {

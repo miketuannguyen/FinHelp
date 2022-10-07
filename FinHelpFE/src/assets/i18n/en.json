@@ -7,5 +7,11 @@
     },
     "validation": {
         "required": "{{item}} is required."
+    },
+    "message": {
+        "err_internal_server_error": "Internal Server Error. Please try again!",
+        "err_unknown_client_error": "Unknown Client Error. Please try again later!",
+        "err_login": "Incorrect username or email",
+        "success": "Success"
     }
 }

@@ -95,8 +95,8 @@
                 "@typescript-eslint/no-explicit-any": "warn",
                 "@typescript-eslint/no-parameter-properties": ["warn", { "allows": ["public", "private", "protected"] }],
                 "@typescript-eslint/no-shadow": ["error"],
-                "@typescript-eslint/no-unnecessary-condition": "error",
-                "@typescript-eslint/prefer-nullish-coalescing": "error",
+                "@typescript-eslint/no-unnecessary-condition": "off",
+                "@typescript-eslint/prefer-nullish-coalescing": "off",
                 "@typescript-eslint/prefer-optional-chain": "error",
                 "arrow-body-style": "error",
                 "curly": "off",
@@ -114,7 +114,16 @@
                 "spaced-comment": ["warn", "always"],
                 "tsdoc/syntax": "error",
                 "keyword-spacing": "error",
-                "block-spacing": "error"
+                "block-spacing": "error",
+                "@typescript-eslint/ban-types": [
+                    "error",
+                    {
+                        "types": {
+                            "Function": false
+                        },
+                        "extendDefaults": true
+                    }
+                ]
             }
         },
         {

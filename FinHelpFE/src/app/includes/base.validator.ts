@@ -39,12 +39,37 @@ export default class BaseValidator {
     }
 
     /**
+     * Get full error messages from validation errors
+     * @param errors - validation errors responded from API
+     * @param messages - all error messages of controls
+     */
+    public getErrorMessagesFromValidationErrors(
+        errors: { [key: string]: string },
+        messages: {
+            [key: string]: {
+                [key: string]: string;
+            };
+        }
+    ) {
+        const result: { [key: string]: string } = {};
+        const errorEntries = Object.entries(errors);
+        for (const [errKey, errMsgKey] of errorEntries) {
+            if (messages[errKey] && Helpers.isNotBlank(messages[errKey][errMsgKey])) {
+                result[errKey] = messages[errKey][errMsgKey];
+            }
+        }
+        return result;
+    }
+
+    /**
      * Show error message under controls
      * @param errors - error message of each control
      */
-    public showErrorMessageUnderControls<TControlNames extends { [k: string]: any }>(errors: {
+    public showErrorMessagesUnderControls<TControlNames extends { [k: string]: any } = { [k: string]: any }>(errors: {
         [K in keyof TControlNames]?: string | undefined;
     }) {
+        if (Helpers.isEmptyObject(errors)) return;
+
         for (const controlName in errors) {
             if (Object.prototype.hasOwnProperty.call(errors, controlName)) {
                 const errMsg = errors[controlName];
@@ -75,11 +100,16 @@ export default class BaseValidator {
             };
         }
     ) {
-        document.querySelectorAll(`p.${CONSTANTS.ERROR_MESSAGE_CLASS}`).forEach((node) => node.remove());
-
         const errors = this.getErrorsOfForm(form, messages);
-        if (!Helpers.isEmptyObject(errors)) this.showErrorMessageUnderControls(errors);
+        if (!Helpers.isEmptyObject(errors)) this.showErrorMessagesUnderControls(errors);
 
         return form.valid;
+    }
+
+    /**
+     * Clear error messages on screens
+     */
+    public clearErrorMessages() {
+        document.querySelectorAll(`p.${CONSTANTS.ERROR_MESSAGE_CLASS}`).forEach((node) => node.remove());
     }
 }

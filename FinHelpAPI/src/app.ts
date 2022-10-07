@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as expressWinston from 'express-winston';
 import * as winston from 'winston';
+import * as cors from 'cors';
 import { ROUTES, userRouter } from './modules';
 import { APIResponse, CONSTANTS, MESSAGES } from './utils';
 
@@ -8,6 +9,11 @@ import { APIResponse, CONSTANTS, MESSAGES } from './utils';
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+    cors({
+        origin: ['http://localhost:4200'],
+    })
+);
 app.use(
     expressWinston.logger({
         level: 'info',

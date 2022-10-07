@@ -23,10 +23,10 @@ export default class Helpers {
 
     /**
      * Check if a string is blank or not
-     * @param arr - any variable
+     * @param str - any variable
      */
-    public static isNotBlank(arr: any): arr is string {
-        return arr !== null && typeof arr === 'string' && arr.trim().length > 0;
+    public static isNotBlank(str: any): str is string {
+        return str !== null && typeof str === 'string' && str.trim().length > 0;
     }
 
     /**
