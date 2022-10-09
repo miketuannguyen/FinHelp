@@ -4,6 +4,7 @@ import { AppToastService } from 'src/app/component/app-toast/app-toast.service';
 import PageComponent from 'src/app/includes/page.component';
 import UserValidator from 'src/app/includes/user.validator';
 import { UserService } from 'src/app/services';
+import { Md5 } from 'ts-md5';
 
 @Component({
     selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent extends PageComponent {
         const isValid = this.validator.validate(this.form, this.validator.getLoginErrorMessages());
         if (!isValid || !this.Helpers.isNotBlank(this.form.value.username) || !this.Helpers.isNotBlank(this.form.value.password)) return;
 
-        const result = await this._user$.login(this.form.value.username, this.form.value.password);
+        const result = await this._user$.login(this.form.value.username, Md5.hashStr(this.form.value.password));
         if (!result.isSuccess || !result.data) {
             if (result.errors) {
                 const errors = this.validator.getErrorMessagesFromValidationErrors(result.errors, this.validator.getLoginErrorMessages());
