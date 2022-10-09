@@ -3,7 +3,9 @@
     "label": {
         "username": "Username",
         "password": "Password",
-        "submit": "Submit"
+        "submit": "Submit",
+        "page_not_found": "Page Not Found",
+        "back_to_homepage": "Back to Homepage"
     },
     "validation": {
         "required": "{{item}} is required."
