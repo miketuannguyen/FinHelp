@@ -6,8 +6,16 @@ export default class UserValidator extends BaseValidator {
         username: string;
         password: string;
     }>({
-        username: Joi.string().messages({ 'string.base': 'required', 'string.empty': 'required' }),
-        password: Joi.string().messages({ 'string.base': 'required', 'string.empty': 'required' }),
+        username: Joi.string().required().messages({
+            'any.required': 'required',
+            'string.base': 'required',
+            'string.empty': 'required'
+        }),
+        password: Joi.string().required().messages({
+            'any.required': 'required',
+            'string.base': 'required',
+            'string.empty': 'required'
+        }),
     }).options({
         abortEarly: false,
     });

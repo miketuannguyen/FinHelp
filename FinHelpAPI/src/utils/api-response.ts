@@ -15,7 +15,7 @@ export default class APIResponse<T> {
      * @param data - response data
      */
     public static success<T>(message: ValueOf<typeof MESSAGES.SUCCESS> = MESSAGES.SUCCESS.SUCCESS, data?: T) {
-        const res = new APIResponse();
+        const res = new APIResponse<T>();
         res.message = message;
         res.data = data;
         return res;
@@ -23,12 +23,14 @@ export default class APIResponse<T> {
 
     /**
      * Create an error response
-     * @param message - error response message, `MESSAGES.ERROR.ERR_VALIDATION` by default
+     * @param message - error response message from API
+     * @param data - error data
      * @param errors - validation errors
      */
-    public static error(message: ValueOf<typeof MESSAGES.ERROR>, errors?: { [key: string]: string }) {
-        const res = new APIResponse();
+    public static error<T = null>(message: ValueOf<typeof MESSAGES.ERROR>, data?: T, errors?: { [key: string]: string }) {
+        const res = new APIResponse<T>();
         res.message = message;
+        res.data = data;
         res.errors = errors;
         return res;
     }

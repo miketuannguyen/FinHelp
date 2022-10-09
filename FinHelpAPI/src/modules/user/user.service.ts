@@ -11,9 +11,9 @@ export default class UserService {
      * @param password - `m_users.password`
      * @returns user entity
      */
-    public static async login(username: string, password: string) {
+    public static async login(username: string, password: string): Promise<(UserDTO & { access_token: string }) | null> {
         const secret = process.env.ACCESS_TOKEN_SECRET;
-        if (!Helpers.isNotBlank(secret)) return '';
+        if (!Helpers.isNotBlank(secret)) return null;
 
         const user = await UserRepository.findByUsername(username);
         if (Helpers.isEmptyObject(user)) return null;
@@ -22,7 +22,9 @@ export default class UserService {
         const userDTO = mapper.map(user, UserEntity, UserDTO);
 
         // jwt need userDTO to be plain object
-        return jwt.sign({ ...userDTO }, secret, { expiresIn: CONSTANTS.ACCESS_TOKEN_EXPIRED_TIME });
+        const accessToken = jwt.sign({ ...userDTO }, secret, { expiresIn: CONSTANTS.ACCESS_TOKEN_EXPIRED_TIME });
+
+        return { ...userDTO, access_token: accessToken };
     }
 
     /**

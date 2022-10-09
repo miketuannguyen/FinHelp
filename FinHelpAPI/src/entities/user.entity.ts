@@ -11,6 +11,10 @@ export default class UserEntity {
     @AutoMap()
         password: string;
 
+    @Column({ type: 'varchar', length: 255 })
+    @AutoMap()
+        name: string;
+
     @Column({ type: 'tinyint' })
     @AutoMap()
         is_active: number;
