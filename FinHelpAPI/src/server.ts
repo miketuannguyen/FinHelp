@@ -16,7 +16,7 @@ app.listen(PORT, () => {
     void MySQLDatabase.initDataSource()
         .then((dataSource) => {
             if (!dataSource) {
-                AppLogger.info('Database initialization failed.');
+                AppLogger.info('MySQL database initialization failed.');
                 process.exit(1);
             }
 

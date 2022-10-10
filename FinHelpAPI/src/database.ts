@@ -48,6 +48,9 @@ export class MySQLDatabase {
      * @returns MySQL entity manager
      */
     public static getManager() {
+        if (!this._dataSource) {
+            throw new Error('MySQL database connection is not found.');
+        }
         return this._dataSource.manager;
     }
 }
