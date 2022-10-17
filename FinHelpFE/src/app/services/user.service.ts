@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { catchError, map, Observable, of } from 'rxjs';
+import { UserEntity } from 'src/entities';
 import { APIResponse, API_ROUTES, BaseHTTPClient, CONSTANTS } from '../utils';
 
 @Injectable({
@@ -7,25 +9,26 @@ import { APIResponse, API_ROUTES, BaseHTTPClient, CONSTANTS } from '../utils';
 })
 export default class UserService {
     /** Constructor */
-    constructor(private _http: BaseHTTPClient) {}
+    constructor(private _http: BaseHTTPClient, private store: Store) {}
 
     /**
      * Login user
      * @param username - username
      * @param password - password
-     * @returns access token
+     * @returns user payload (no password) with access token
      */
-    public async login(username: string, password: string) {
-        try {
-            const observable = this._http.post<{ access_token: string }>(API_ROUTES.USER.LOGIN, { username, password });
-            const { body } = await firstValueFrom(observable);
-            if (!body) return APIResponse.error(CONSTANTS.ERR_INTERNAL_SERVER_ERROR);
-            return APIResponse.success(body.message, body.data);
-        } catch (err) {
-            if (APIResponse.is(err)) {
-                return APIResponse.error(err.message, err.data, err.errors);
-            }
-            return APIResponse.error(CONSTANTS.ERR_INTERNAL_SERVER_ERROR);
-        }
+    public login(username: string, password: string): Observable<APIResponse<(UserEntity & { access_token: string }) | undefined>> {
+        return this._http.post<(UserEntity & { access_token: string }) | undefined>(API_ROUTES.USER.LOGIN, { username, password }).pipe(
+            map((response) => {
+                if (!response.body || !response.body.data) return APIResponse.error(CONSTANTS.ERR_INTERNAL_SERVER_ERROR);
+                return APIResponse.success(response.body.message, response.body.data);
+            }),
+            catchError((err) => {
+                if (APIResponse.is(err)) {
+                    return of(APIResponse.error(err.message, undefined, err.errors));
+                }
+                return of(APIResponse.error(CONSTANTS.ERR_INTERNAL_SERVER_ERROR));
+            })
+        );
     }
 }

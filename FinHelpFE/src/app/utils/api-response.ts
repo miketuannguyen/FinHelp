@@ -7,7 +7,7 @@ export default class APIResponse<T> {
     public message = '';
     /** Response data */
     public data?: T;
-    /** Validation error */
+    /** Validation errors */
     public errors?: { [key: string]: string };
 
     /**
@@ -16,7 +16,7 @@ export default class APIResponse<T> {
      * @param data - response data
      */
     public static success<T>(message: string, data?: T) {
-        const res = new APIResponse();
+        const res = new APIResponse<T>();
         res.isSuccess = true;
         res.message = message;
         res.data = data;
@@ -29,7 +29,7 @@ export default class APIResponse<T> {
      * @param data - error data
      * @param errors - validation errors
      */
-    public static error<T = null>(message: string, data?: T, errors?: { [key: string]: string }) {
+    public static error<T = undefined>(message: string, data?: T, errors?: { [key: string]: string }) {
         const res = new APIResponse<T>();
         res.isSuccess = false;
         res.message = message;

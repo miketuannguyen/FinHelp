@@ -11,6 +11,12 @@ p.error-message {
     background-color: $primaryColor !important;
 }
 
+.app-primary-button {
+    background-color: $primaryColor !important;
+    border-color: $primaryColor !important;
+    color: #fff !important;
+}
+
 .app-loading-layer {
     position: absolute;
     top: 0;
