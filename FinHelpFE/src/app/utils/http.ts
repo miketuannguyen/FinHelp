@@ -13,10 +13,17 @@ export class HTTPOptions {
     public showLoading = true;
     public headers: HttpHeaders | { [header: string]: string | string[] };
     public params?: HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean> };
+    public useAccessToken = true;
 
     /** Constructor */
     constructor() {
         this.headers = { 'Content-Type': 'application/json' };
+        if (this.useAccessToken) {
+            const accessToken = Helpers.getAccessToken();
+            if (!Helpers.isNotBlank(accessToken)) return;
+
+            this.headers['access_token'] = `Bearer ${accessToken}`;
+        }
     }
 }
 

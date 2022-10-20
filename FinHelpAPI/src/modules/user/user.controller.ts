@@ -35,7 +35,11 @@ export default class UserController {
      * @param res - User data
      */
     @Decorators.API
-    public static getProfile(req: AuthenticatedRequest, res: Response) {
-        return res.status(CONSTANTS.HTTP_STATUS_CODES.SUCCESS.OK).json(APIResponse.success(MESSAGES.SUCCESS.SUCCESS, req.userPayload));
+    public static async getProfile(req: AuthenticatedRequest, res: Response) {
+        const profile = await UserService.findByUsername(req.userPayload.username);
+        if (!profile) {
+            return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));
+        }
+        return res.status(CONSTANTS.HTTP_STATUS_CODES.SUCCESS.OK).json(APIResponse.success(MESSAGES.SUCCESS.SUCCESS, profile));
     }
 }

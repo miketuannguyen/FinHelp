@@ -1,4 +1,8 @@
-/** m_users */
+/**
+ * `m_users`
+ *
+ * Normally, this contains no password
+ */
 export default class UserEntity {
     /** m_users.username */
     public username = '';

@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { UserEntity } from 'src/entities';
 
 export enum AuthActionTypes {
-    LOGIN = '[Auth] LOGIN',
+    SAVE = '[Auth] SAVE',
 }
 
-export const loginAction = createAction(AuthActionTypes.LOGIN, props<{ payload: UserEntity & { access_token: string } }>());
+export const saveAuthStateAction = createAction(AuthActionTypes.SAVE, props<{ payload: UserEntity & { access_token: string } }>());

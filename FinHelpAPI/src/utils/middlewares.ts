@@ -17,8 +17,8 @@ export default class Middlewares {
     public static authenticate() {
         return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
             try {
-                const { access_token: accessToken } = req.headers;
-                if (!Helpers.isNotBlank(accessToken)) {
+                const { access_token: bearerAccessToken } = req.headers;
+                if (!Helpers.isNotBlank(bearerAccessToken)) {
                     return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));
                 }
 
@@ -29,6 +29,7 @@ export default class Middlewares {
                         .json(APIResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR));
                 }
 
+                const accessToken = bearerAccessToken.replace('Bearer ', '');
                 const payload = jwt.verify(accessToken, secret);
                 if (!UserDTO.is(payload)) {
                     return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));

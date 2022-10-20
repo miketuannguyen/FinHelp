@@ -124,7 +124,8 @@
                         },
                         "extendDefaults": true
                     }
-                ]
+                ],
+                "@ngrx/prefer-effect-callback-in-block-statement": "off"
             }
         },
         {

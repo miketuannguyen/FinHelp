@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppToastService } from 'src/app/component/app-toast/app-toast.service';
 import PageComponent from 'src/app/includes/page.component';
 import UserValidator from 'src/app/includes/user.validator';
 import { UserService } from 'src/app/services';
-import { selectAuthState } from 'src/app/store/auth/auth.selectors';
 import { UserEntity } from 'src/entities';
 import { Md5 } from 'ts-md5';
-import { loginAction } from './../../../store/auth/auth.actions';
+import { saveAuthStateAction } from './../../../store/auth/auth.actions';
 
 @Component({
     selector: 'app-login',
@@ -24,14 +24,8 @@ export class LoginComponent extends PageComponent {
     };
 
     /** Constructor */
-    constructor(private _translate: TranslateService, private _user$: UserService, private _toast$: AppToastService, private store: Store) {
+    constructor(private _translate: TranslateService, private _user$: UserService, private _toast$: AppToastService, private store: Store, private _router: Router) {
         super();
-        const authStateObs = this.store.select(selectAuthState);
-        authStateObs.subscribe((authState) => {
-            if (authState?.current_user) {
-                this.currentUser = authState.current_user;
-            }
-        });
     }
 
     /**
@@ -55,7 +49,9 @@ export class LoginComponent extends PageComponent {
                 return;
             }
 
-            this.store.dispatch(loginAction({ payload: result.data }));
+            this.store.dispatch(saveAuthStateAction({ payload: result.data }));
+
+            void this._router.navigate([this.ROUTES.DASHBOARD]);
         });
     }
 }

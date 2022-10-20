@@ -17,7 +17,7 @@ export default class UserEntity {
 
     @Column({ type: 'tinyint' })
     @AutoMap()
-        is_active: number;
+        is_active: 0 | 1;
 
     @CreateDateColumn({ type: 'datetime' })
     @AutoMap()

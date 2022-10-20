@@ -87,4 +87,20 @@ export default class Helpers {
     public static hasProperty(obj: any, propName: string): obj is { [k: string]: any } {
         return obj !== null && typeof obj === 'object' && Object.prototype.hasOwnProperty.call(obj, propName);
     }
+
+    /**
+     * Get access token
+     */
+    public static getAccessToken() {
+        // can't use CONSTANTS here because CONSTANTS needs Helpers to be initialized first
+        return localStorage.getItem('finhelp_access_token');
+    }
+
+    /**
+     * Remove access token
+     */
+    public static removeAccessToken() {
+        // can't use CONSTANTS here because CONSTANTS needs Helpers to be initialized first
+        return localStorage.removeItem('finhelp_access_token');
+    }
 }

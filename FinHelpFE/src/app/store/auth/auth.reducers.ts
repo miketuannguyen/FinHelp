@@ -1,4 +1,4 @@
-import { loginAction } from './auth.actions';
+import { saveAuthStateAction } from './auth.actions';
 import { createReducer, on } from '@ngrx/store';
 import { UserEntity } from 'src/entities';
 
@@ -14,7 +14,7 @@ export const initialAuthState: AuthState = {
 export const authReducer = createReducer(
     initialAuthState,
     on(
-        loginAction,
+        saveAuthStateAction,
         (state, action): AuthState => ({
             ...state,
             current_user: { ...action.payload },

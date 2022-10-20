@@ -7,6 +7,8 @@ const CONSTANTS = {
     ERROR_MESSAGE_CLASS: 'error-message',
     /** Default internal server error message */
     ERR_INTERNAL_SERVER_ERROR: 'err_internal_server_error',
+    /** `localStorage` key name of access token */
+    LS_ACCESS_TOKEN_KEY: 'finhelp_access_token',
 } as const;
 Helpers.deepFreeze(CONSTANTS);
 
@@ -15,6 +17,7 @@ const ROUTES = {
     AUTH: {
         LOGIN: 'auth/login',
     },
+    DASHBOARD: '',
 } as const;
 Helpers.deepFreeze(ROUTES);
 
@@ -22,6 +25,7 @@ Helpers.deepFreeze(ROUTES);
 const API_ROUTES = {
     USER: {
         LOGIN: 'user/login',
+        GET_PROFILE: 'user/profile',
     },
 } as const;
 Helpers.deepFreeze(API_ROUTES);

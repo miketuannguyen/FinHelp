@@ -3,6 +3,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -12,7 +13,9 @@ import { ComponentModule } from './component/component.module';
 import { AppInitFactory, HttpLoaderFactory } from './includes/translation.config';
 import { AuthModule } from './pages/auth/auth.module';
 import { AppCommonModule } from './pages/common/common.module';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { reducers } from './store/app.states';
+import { AuthEffects } from './store/auth/auth.effects';
 
 @NgModule({
     declarations: [AppComponent],
@@ -31,10 +34,12 @@ import { reducers } from './store/app.states';
                 deps: [HttpClient],
             },
         }),
+        DashboardModule,
         AuthModule,
         ComponentModule,
         AppCommonModule,
-        StoreModule.forRoot(reducers, {}),
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([AuthEffects]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.mode === 'PROD' }),
     ],
     providers: [
