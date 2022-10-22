@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppToastService } from 'src/app/component/app-toast/app-toast.service';
+import { AppToastService } from 'src/app/components/app-toast/app-toast.service';
 import PageComponent from 'src/app/includes/page.component';
 import UserValidator from 'src/app/includes/user.validator';
 import { UserService } from 'src/app/services';

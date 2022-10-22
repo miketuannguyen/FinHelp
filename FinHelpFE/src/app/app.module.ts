@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { ComponentModule } from './component/component.module';
+import { ComponentModule } from './components/component.module';
 import { AppInitFactory, HttpLoaderFactory } from './includes/translation.config';
 import { AuthModule } from './pages/auth/auth.module';
 import { AppCommonModule } from './pages/common/common.module';
