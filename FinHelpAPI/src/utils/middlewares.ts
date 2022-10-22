@@ -18,12 +18,12 @@ export default class Middlewares {
         return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
             try {
                 const { access_token: bearerAccessToken } = req.headers;
-                if (!Helpers.isNotBlank(bearerAccessToken)) {
+                if (!Helpers.isString(bearerAccessToken)) {
                     return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED).json(APIResponse.error(MESSAGES.ERROR.ERR_UNAUTHORIZED));
                 }
 
                 const secret = process.env.ACCESS_TOKEN_SECRET;
-                if (!Helpers.isNotBlank(secret)) {
+                if (!Helpers.isString(secret)) {
                     return res
                         .status(CONSTANTS.HTTP_STATUS_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR)
                         .json(APIResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR));

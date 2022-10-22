@@ -22,10 +22,10 @@ export default class Helpers {
     }
 
     /**
-     * Check if a string is blank or not
+     * Check if a variable is a filled string or not
      * @param str - any variable
      */
-    public static isNotBlank(str: any): str is string {
+    public static isString(str: any): str is string {
         return str !== null && typeof str === 'string' && str.trim().length > 0;
     }
 

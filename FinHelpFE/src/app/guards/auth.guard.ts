@@ -24,7 +24,7 @@ export default class AuthGuard implements CanActivate {
      */
     canActivate(): Observable<boolean | UrlTree> | boolean {
         const accessToken = Helpers.getAccessToken();
-        if (!Helpers.isNotBlank(accessToken)) {
+        if (!Helpers.isString(accessToken)) {
             void this._router.navigate([ROUTES.AUTH.LOGIN]);
             return false;
         }

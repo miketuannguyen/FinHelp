@@ -20,10 +20,10 @@ export default class UserDTO {
         return (
             data !== null &&
             typeof data === 'object' &&
-            Helpers.isNotBlank(data?.username) &&
+            Helpers.isString(data?.username) &&
             (Number(data?.is_active) === 1 || Number(data?.is_active) === 0) &&
-            Helpers.isNotBlank(data?.created_date) &&
-            Helpers.isNotBlank(data?.updated_date)
+            Helpers.isString(data?.created_date) &&
+            Helpers.isString(data?.updated_date)
         );
     }
 }

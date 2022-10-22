@@ -46,7 +46,7 @@ export default class APIResponse<T> {
      */
     public static is<T = any>(obj: any, typeGuard?: (data: any) => data is T): obj is APIResponse<T> {
         if (typeof obj !== 'object') return false;
-        if (!Helpers.hasProperty(obj, 'message') || !Helpers.isNotBlank(obj['message'])) return false;
+        if (!Helpers.hasProperty(obj, 'message') || !Helpers.isString(obj['message'])) return false;
         if (typeGuard && !typeGuard(obj['data'])) return false;
         return true;
     }

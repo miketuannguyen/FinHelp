@@ -34,7 +34,7 @@ export class LoginComponent extends PageComponent {
     public onSubmit() {
         this.validator.clearErrorMessages();
         const isValid = this.validator.validate(this.form, this.validator.getLoginErrorMessages());
-        if (!isValid || !this.Helpers.isNotBlank(this.form.value.username) || !this.Helpers.isNotBlank(this.form.value.password)) return;
+        if (!isValid || !this.Helpers.isString(this.form.value.username) || !this.Helpers.isString(this.form.value.password)) return;
 
         this._user$.login(this.form.value.username, Md5.hashStr(this.form.value.password)).subscribe((result) => {
             if (!result.isSuccess || !result.data) {

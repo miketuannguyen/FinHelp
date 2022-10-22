@@ -15,18 +15,18 @@ export class MySQLDatabase {
     public static async initDataSource() {
         try {
             const host = process.env.MYSQL_HOST;
-            if (!Helpers.isNotBlank(host)) return null;
+            if (!Helpers.isString(host)) return null;
 
             const port = Number(process.env.MYSQL_PORT);
             if (!port) return null;
 
             const username = process.env.MYSQL_USERNAME;
-            if (!Helpers.isNotBlank(username)) return null;
+            if (!Helpers.isString(username)) return null;
 
             const password = process.env.MYSQL_PASSWORD;
 
             const database = process.env.MYSQL_DATABASE;
-            if (!Helpers.isNotBlank(database)) return null;
+            if (!Helpers.isString(database)) return null;
 
             this._dataSource = await new DataSource({
                 type: 'mysql',

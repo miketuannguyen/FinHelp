@@ -13,7 +13,7 @@ export default class UserService {
      */
     public static async login(username: string, password: string): Promise<(UserDTO & { access_token: string }) | null> {
         const secret = process.env.ACCESS_TOKEN_SECRET;
-        if (!Helpers.isNotBlank(secret)) return null;
+        if (!Helpers.isString(secret)) return null;
 
         const user = await UserRepository.findByUsername(username);
         if (Helpers.isEmptyObject(user)) return null;
@@ -32,7 +32,7 @@ export default class UserService {
      * @param username - `m_users.username`
      */
     public static async findByUsername(username: string) {
-        if (!Helpers.isNotBlank(username)) return null;
+        if (!Helpers.isString(username)) return null;
 
         const user = await UserRepository.findByUsername(username);
         if (Helpers.isEmptyObject(user)) return null;

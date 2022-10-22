@@ -14,7 +14,7 @@ export default class BaseValidator {
 
         const errors: { [k: string]: string } = {};
         validationResult.error.details.forEach((errItem) => {
-            if (errItem.context && Helpers.isNotBlank(errItem.context.key)) errors[errItem.context.key] = errItem.message;
+            if (errItem.context && Helpers.isString(errItem.context.key)) errors[errItem.context.key] = errItem.message;
         });
         return errors;
     }

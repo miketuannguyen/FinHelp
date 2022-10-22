@@ -13,7 +13,7 @@ export class AuthEffects {
             this.actions.pipe(
                 ofType(AuthActionTypes.SAVE),
                 tap<{ payload: UserEntity & { access_token: string } }>((value) => {
-                    if (Helpers.isNotBlank(value?.payload?.access_token)) {
+                    if (Helpers.isString(value?.payload?.access_token)) {
                         localStorage.setItem(CONSTANTS.LS_ACCESS_TOKEN_KEY, value.payload.access_token);
                     }
                 })

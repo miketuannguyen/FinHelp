@@ -54,7 +54,7 @@ export default class BaseValidator {
         const result: { [key: string]: string } = {};
         const errorEntries = Object.entries(errors);
         for (const [errKey, errMsgKey] of errorEntries) {
-            if (messages[errKey] && Helpers.isNotBlank(messages[errKey][errMsgKey])) {
+            if (messages[errKey] && Helpers.isString(messages[errKey][errMsgKey])) {
                 result[errKey] = messages[errKey][errMsgKey];
             }
         }
@@ -73,7 +73,7 @@ export default class BaseValidator {
         for (const controlName in errors) {
             if (Object.prototype.hasOwnProperty.call(errors, controlName)) {
                 const errMsg = errors[controlName];
-                if (!Helpers.isNotBlank(errMsg)) continue;
+                if (!Helpers.isString(errMsg)) continue;
 
                 const controlInput = document.querySelector(`[formcontrolname=${controlName}]`);
                 const errMsgNode = document.createElement('p');

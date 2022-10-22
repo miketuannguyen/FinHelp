@@ -20,7 +20,7 @@ export class HTTPOptions {
         this.headers = { 'Content-Type': 'application/json' };
         if (this.useAccessToken) {
             const accessToken = Helpers.getAccessToken();
-            if (!Helpers.isNotBlank(accessToken)) return;
+            if (!Helpers.isString(accessToken)) return;
 
             this.headers['access_token'] = `Bearer ${accessToken}`;
         }
@@ -52,7 +52,7 @@ export class BaseHTTPClient {
         if (opts.showLoading) Helpers.showLoading();
 
         const queryString = qs.stringify(query);
-        const queries = Helpers.isNotBlank(queryString) ? `?${queryString}` : '';
+        const queries = Helpers.isString(queryString) ? `?${queryString}` : '';
         const url = `${environment.api_url}/${route}${queries}`;
 
         return this._httpClient
