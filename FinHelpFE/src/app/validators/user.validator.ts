@@ -1,28 +1,21 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import BaseValidator from './base.validator';
+import { AppFormGroup } from '../utils';
 
-export default class UserValidator extends BaseValidator {
+export default class UserValidator {
     /** Constructor */
-    constructor(private _translate: TranslateService) {
-        super();
-    }
+    constructor(private _translate: TranslateService) {}
 
     /**
-     * Build login form group
+     * Get login form group
      */
-    public buildLoginForm() {
-        return new FormGroup({
+    public getLoginForm() {
+        const form = new AppFormGroup({
             username: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required]),
         });
-    }
 
-    /**
-     * Get login error messages based on rules of form controls
-     */
-    public getLoginErrorMessages() {
-        return {
+        form.controlValidationMessages = {
             username: {
                 required: this._translate.instant('validation.required', {
                     item: this._translate.instant('label.username') as string,
@@ -34,5 +27,7 @@ export default class UserValidator extends BaseValidator {
                 }) as string,
             },
         };
+
+        return form;
     }
 }
