@@ -1,7 +1,7 @@
 import { UserDTO } from '../dtos';
 import { NextFunction, Response } from 'express';
 import jwt = require('jsonwebtoken');
-import APIResponse from './api-response';
+import { APIResponse } from './api-response';
 import CONSTANTS from './constants';
 import Helpers from './helpers';
 import MESSAGES from './messages';

@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
-import APIResponse from './api-response';
+import { Response } from 'express';
+import { APIResponse } from './api-response';
 import CONSTANTS from './constants';
 import Helpers from './helpers';
 import AppLogger from './logger';
 import MESSAGES from './messages';
+import { AuthenticatedRequest } from './types';
 
 export default class Decorators {
     /**
@@ -14,7 +15,7 @@ export default class Decorators {
     public static API(
         target: Function,
         propertyKey: string,
-        descriptor: TypedPropertyDescriptor<(req: Request, res: Response) => Promise<Response> | Response>
+        descriptor: TypedPropertyDescriptor<(req: AuthenticatedRequest, res: Response) => Promise<Response> | Response>
     ) {
         if (!descriptor.value) return;
 

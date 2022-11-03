@@ -15,7 +15,7 @@ export default class UserEntity {
     @AutoMap()
         name: string;
 
-    @Column({ type: 'tinyint' })
+    @Column({ type: 'tinyint', default: 1 })
     @AutoMap()
         is_active: 0 | 1;
 

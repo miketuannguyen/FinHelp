@@ -1,8 +1,8 @@
+import * as cors from 'cors';
 import * as express from 'express';
 import * as expressWinston from 'express-winston';
 import * as winston from 'winston';
-import * as cors from 'cors';
-import { ROUTES, userRouter } from './modules';
+import routes from './modules/routes';
 import { APIResponse, CONSTANTS, MESSAGES } from './utils';
 
 // ========== [START] Application setups [START] ==========
@@ -26,11 +26,10 @@ app.use(
         ignoreRoute: () => false, // optional: allows to skip some log messages based on request and/or response
     })
 );
-// ========== [START] Application setups [START] ==========
+// ========== [END] Application setups [END] ==========
 
 // ========== [START] Routes handlers [START] ==========
-app.use(ROUTES.USER.MODULE, userRouter);
-
+app.use(routes);
 // The final request handler to handle all requests having undefined routes
 app.use((_, res) => res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.NOT_FOUND).json(APIResponse.error(MESSAGES.ERROR.ERR_RESOURCE_NOT_FOUND)));
 // ========== [END] Routes handlers [END] ==========

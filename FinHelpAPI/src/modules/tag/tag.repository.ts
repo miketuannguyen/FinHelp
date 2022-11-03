@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import { MySQLDatabase } from '../../database';
-import { UserEntity } from '../../entities';
+import { TagEntity } from '../../entities';
 
-export default class UserRepository {
-    private static _instance: Repository<UserEntity>;
+export default class TagRepository {
+    private static _instance: Repository<TagEntity>;
 
     /** Constructor */
     private constructor() {}
@@ -13,7 +13,7 @@ export default class UserRepository {
      */
     public static getInstance() {
         if (!this._instance) {
-            this._instance = MySQLDatabase.getManager().getRepository(UserEntity).extend({});
+            this._instance = MySQLDatabase.getManager().getRepository(TagEntity).extend({});
         }
         return this._instance;
     }

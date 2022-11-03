@@ -15,7 +15,7 @@ export default class UserService {
         const secret = process.env.ACCESS_TOKEN_SECRET;
         if (!Helpers.isString(secret)) return null;
 
-        const user = await UserRepository.findByUsername(username);
+        const user = await UserRepository.getInstance().findOneBy({ username });
         if (Helpers.isEmptyObject(user)) return null;
         if (user?.password !== password) return null;
 
@@ -34,7 +34,7 @@ export default class UserService {
     public static async findByUsername(username: string) {
         if (!Helpers.isString(username)) return null;
 
-        const user = await UserRepository.findByUsername(username);
+        const user = await UserRepository.getInstance().findOneBy({ username });
         if (Helpers.isEmptyObject(user)) return null;
 
         return mapper.map(user, UserEntity, UserDTO);

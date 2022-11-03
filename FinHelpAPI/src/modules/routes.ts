@@ -1,13 +1,13 @@
-import { Helpers } from '../utils';
+import * as express from 'express';
+import { Middlewares } from '../utils';
+import TagController from './tag/tag.controller';
+import UserController from './user/user.controller';
 
-/** API routes */
-const ROUTES = {
-    USER: {
-        MODULE: '/user',
-        LOGIN: '/login',
-        PROFILE: '/profile',
-    },
-} as const;
-Helpers.deepFreeze(ROUTES);
+const router = express.Router();
 
-export default ROUTES;
+router.post('/user/login', UserController.login);
+router.get('/user/profile', Middlewares.authenticate(), UserController.getProfile);
+
+router.post('/user/tag', Middlewares.authenticate(), TagController.createTagOfUser);
+
+export default router;

@@ -13,7 +13,8 @@ const MESSAGES = {
         ERR_NO_DATA: 'err_no_data',
         ERR_VALIDATION: 'err_validation',
         ERR_LOGIN: 'err_login',
-        ERR_UNAUTHORIZED: 'err_unauthorized'
+        ERR_UNAUTHORIZED: 'err_unauthorized',
+        ERR_CREATE: 'err_create',
     },
 } as const;
 

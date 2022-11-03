@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { UserEntity } from './entities';
+import { UserEntity, TagEntity } from './entities';
 import { Helpers } from './utils';
 
 export class MySQLDatabase {
@@ -35,7 +35,7 @@ export class MySQLDatabase {
                 username,
                 password,
                 database,
-                entities: [UserEntity],
+                entities: [UserEntity, TagEntity],
             }).initialize();
             return this._dataSource;
         } catch (e) {
