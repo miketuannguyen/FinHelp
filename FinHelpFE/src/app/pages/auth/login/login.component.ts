@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppToastService } from 'src/app/components/app-toast/app-toast.service';
 import PageComponent from 'src/app/includes/page.component';
+import { AuthService } from 'src/app/services';
 import UserValidator from 'src/app/validators/user.validator';
-import { UserService } from 'src/app/services';
 import { UserEntity } from 'src/entities';
 import { Md5 } from 'ts-md5';
 import { saveAuthStateAction } from './../../../store/auth/auth.actions';
@@ -25,7 +25,7 @@ export class LoginComponent extends PageComponent {
     };
 
     /** Constructor */
-    constructor(private _translate: TranslateService, private _user$: UserService, private _toast$: AppToastService, private store: Store, private _router: Router) {
+    constructor(private _translate: TranslateService, private _auth$: AuthService, private _toast$: AppToastService, private store: Store, private _router: Router) {
         super();
     }
 
@@ -39,7 +39,7 @@ export class LoginComponent extends PageComponent {
             return;
         }
 
-        this._user$.login(this.form.value.username, Md5.hashStr(this.form.value.password)).subscribe((result) => {
+        this._auth$.login(this.form.value.username, Md5.hashStr(this.form.value.password)).subscribe((result) => {
             if (!result.isSuccess || !result.data) {
                 if (result.errors) {
                     this.form.setErrorMessagesFromValidationErrors(result.errors);

@@ -22,7 +22,7 @@ export class HTTPOptions {
             const accessToken = Helpers.getAccessToken();
             if (!Helpers.isString(accessToken)) return;
 
-            this.headers['access_token'] = `Bearer ${accessToken}`;
+            this.headers['Authorization'] = `Bearer ${accessToken}`;
         }
     }
 }

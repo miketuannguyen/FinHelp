@@ -23,8 +23,10 @@ Helpers.deepFreeze(ROUTES);
 
 /** API routes */
 const API_ROUTES = {
+    AUTH: {
+        LOGIN: 'auth/login',
+    },
     USER: {
-        LOGIN: 'user/login',
         GET_PROFILE: 'user/profile',
     },
 } as const;
