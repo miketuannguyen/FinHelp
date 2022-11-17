@@ -1,6 +1,0 @@
-{
-    "[typescript]": {
-        "editor.formatOnSave": false
-    },
-    "dotenv.enableAutocloaking": false
-}
