@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Res, UsePipes } from '@nestjs/common';
 import { Response } from 'express';
 import { UserDTO } from 'src/dtos';
-import AppLogger from 'src/logger/logger';
+import BaseController from 'src/includes/base.controller';
 import { ValidationPipe } from 'src/pipes';
 import { APIResponse, MESSAGES } from 'src/utils';
 import ROUTES from '../routes';
@@ -9,11 +9,11 @@ import * as AuthSchemas from './auth.schemas';
 import { AuthService } from './auth.service';
 
 @Controller(ROUTES.AUTH.MODULE)
-export class AuthController {
-    private readonly _logger = new AppLogger(AuthController.name);
-
+export class AuthController extends BaseController {
     /** Constructor */
-    constructor(private readonly _authService: AuthService) {}
+    constructor(private readonly _authService: AuthService) {
+        super();
+    }
 
     /**
      * Login
@@ -40,9 +40,9 @@ export class AuthController {
             const successRes = APIResponse.success(MESSAGES.SUCCESS.SUCCESS, loginRes);
             return res.status(HttpStatus.OK).json(successRes);
         } catch (e) {
-            this._logger.error('login', e);
+            this._logger.error(this.login.name, e);
             const errRes = APIResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
         }
     }
 }

@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { UserDTO } from 'src/dtos';
 import { UserEntity } from 'src/entities';
+import { BaseService } from 'src/includes';
 import { UserRepository } from 'src/repository';
 import { Helpers, mapper } from 'src/utils';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService {
     /** Constructor */
-    constructor(private readonly _userRepo: UserRepository) {}
+    constructor(private readonly _userRepo: UserRepository) {
+        super();
+    }
 
     /**
      * Find user by username

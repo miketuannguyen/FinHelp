@@ -2,14 +2,17 @@ import { Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { UserDTO } from 'src/dtos';
 import { UserEntity } from 'src/entities';
+import { BaseService } from 'src/includes';
 import { UserRepository } from 'src/repository';
 import { CONSTANTS, Helpers } from 'src/utils';
 import { mapper } from 'src/utils/mapper';
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseService {
     /** Constructor */
-    constructor(private readonly _userRepo: UserRepository) {}
+    constructor(private readonly _userRepo: UserRepository) {
+        super();
+    }
 
     /**
      * Login user

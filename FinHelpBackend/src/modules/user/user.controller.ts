@@ -1,18 +1,16 @@
 import { Controller, Get, HttpStatus, Req, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { UserDTO } from 'src/dtos';
-import AppLogger from 'src/logger/logger';
-import { APIResponse, MESSAGES } from 'src/utils';
+import { BaseController } from 'src/includes';
 import { AuthenticatedRequest } from 'src/utils/types';
 import ROUTES from '../routes';
 import { UserService } from './user.service';
 
 @Controller(ROUTES.USER.MODULE)
-export class UserController {
-    private readonly _logger = new AppLogger(UserController.name);
-
+export class UserController extends BaseController {
     /** Constructor */
-    constructor(private readonly _userService: UserService) {}
+    constructor(private readonly _userService: UserService, private readonly _tagService: TagService) {
+        super();
+    }
 
     /**
      * Get user profile
