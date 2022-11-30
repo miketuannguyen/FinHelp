@@ -16,4 +16,4 @@ export const loginSchema = Joi.object<{
     }),
 }).options({
     abortEarly: false,
-});
+}).unknown(true);
