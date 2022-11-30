@@ -11,7 +11,6 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         bufferLogs: true,
     });
-    app.useLogger(new AppLogger('main'));
     app.enableCors();
 
     AppLogger.initAppLogFolder();
@@ -24,5 +23,8 @@ async function bootstrap() {
     }
 
     await app.listen(port);
+
+    const mainLogger = new AppLogger('main');
+    mainLogger.info('=========== FinHelpBackend start =========== ');
 }
 void bootstrap();
