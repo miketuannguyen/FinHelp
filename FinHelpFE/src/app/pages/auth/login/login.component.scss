@@ -1,10 +1,10 @@
 @import 'app.scss';
 
-.login-form {
-    .login-header {
+.login__form {
+    .login__header {
         background-color: $primaryColor;
 
-        .login-title {
+        .login__title {
             color: white;
             // text-transform: uppercase;
             text-align: center;
