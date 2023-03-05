@@ -1,0 +1,39 @@
+<div class="offcanvas-header offcanvas-header--shadow-relative">
+    <div class="container-fluid">
+        <div class="row w-100">
+            <div class="col-11 d-flex align-items-center">
+                <div class="user-icon__container">
+                    <fa-icon
+                        [icon]="icons.solid.faUser"
+                        [size]="'lg'"></fa-icon>
+                </div>
+                <p class="user-name">{{ currentUser.name }}</p>
+            </div>
+            <div class="col-1 d-flex align-items-center justify-content-center">
+                <fa-icon
+                    class="close-btn"
+                    [icon]="icons.solid.faTimes"
+                    [size]="'2x'"
+                    (click)="activeOffCanvas.close()">
+                </fa-icon>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas-body">
+    <div class="container-fluid">
+        <div class="row menu-item {{ helpers.isFilledArray(routePathList) && routePathList[0] === ROUTES.TAG.MODULE ? 'menu-item--active' : '' }}">
+            <div class="col-2 menu-item__icon">
+                <fa-icon
+                    class="close-btn"
+                    [icon]="icons.solid.faTag"
+                    [size]="'2x'"></fa-icon>
+            </div>
+            <div
+                class="col-10 menu-item__title"
+                (click)="navigate('/' + ROUTES.TAG.MODULE + '/' + ROUTES.TAG.LIST)">
+                {{ 'label.tag_management' | translate }}
+            </div>
+        </div>
+    </div>
+</div>

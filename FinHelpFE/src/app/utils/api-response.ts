@@ -1,6 +1,6 @@
 import Helpers from './helpers';
 
-export default class APIResponse<T> {
+export class APIResponse<T> {
     /** Request is successful or not */
     public isSuccess = false;
     /** Response message */
@@ -49,5 +49,16 @@ export default class APIResponse<T> {
         if (!Helpers.hasProperty(obj, 'message') || !Helpers.isString(obj['message'])) return false;
         if (typeGuard && !typeGuard(obj['data'])) return false;
         return true;
+    }
+}
+
+export class ListResponse<T> {
+    public list: T[] = [];
+    public total = 0;
+
+    /** Constructor */
+    constructor(list: T[] = [], total = 0) {
+        this.list = list;
+        this.total = total;
     }
 }

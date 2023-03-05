@@ -1,8 +1,8 @@
-@import 'app.scss';
+@import 'custom.scss';
 
 .login__form {
     .login__header {
-        background-color: $primaryColor;
+        background-color: $primary;
 
         .login__title {
             color: white;

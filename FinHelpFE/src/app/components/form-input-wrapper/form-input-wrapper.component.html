@@ -1,3 +1,12 @@
-<label *ngIf="Helpers.isString(label)" for="{{for}}" class="{{class}}">{{label}}</label>
+<label
+    *ngIf="helpers.isString(label)"
+    for="{{ for }}"
+    class="{{ class }}"
+    >{{ label }}</label
+>
 <ng-content></ng-content>
-<p *ngIf="Helpers.isString(errorMessage)" class="error-message">{{errorMessage}}</p>
+<p
+    *ngIf="helpers.isString(errorMessage)"
+    class="app-error-message">
+    {{ errorMessage }}
+</p>

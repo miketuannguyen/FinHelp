@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectAuthState } from 'src/app/store/auth/auth.selectors';
-import { UserEntity } from 'src/entities';
+import { UserEntity } from 'src/app/entities';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     public curUser = new UserEntity();

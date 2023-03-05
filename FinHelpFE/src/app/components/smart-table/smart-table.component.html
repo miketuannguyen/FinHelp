@@ -1,0 +1,60 @@
+<table
+    class="table table-bordered table-striped app-table align-middle"
+    [ngClass]="config.tableClass">
+    <thead>
+        <tr>
+            <th
+                *ngFor="let col of config.columns"
+                scope="col"
+                [ngStyle]="{
+                    width: col.width,
+                    'min-width': col.minWidth,
+                    'max-width': col.maxWidth
+                }"
+                [ngClass]="col.headerClass">
+                {{ col.title }}
+            </th>
+            <th
+                *ngIf="helpers.isFilledArray(config.actions)"
+                [ngStyle]="{
+                    width: '75px',
+                    'min-width': '75px',
+                    'max-width': '75px'
+                }">
+                {{ 'label.actions' | translate }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="helpers.isFilledArray(dataSource)">
+            <tr
+                *ngFor="let item of dataSource; let idx = index"
+                (click)="onRowClicked(idx)">
+                <td
+                    *ngFor="let col of config.columns"
+                    [ngClass]="col.class">
+                    {{ item[col.propName] }}
+                </td>
+                <ng-container *ngIf="helpers.isFilledArray(config.actions)">
+                    <td class="text-center">
+                        <ng-container *ngFor="let action of config.actions; let idx = index">
+                            <span
+                                *ngIf="getIconByActionId(action.id)"
+                                (click)="action.callback(item)">
+                                <fa-icon
+                                    class="color-primary cursor-pointer {{ idx !== config.actions.length - 1 ? 'me-2' : '' }}"
+                                    [icon]="getIconByActionId(action.id)"
+                                    [size]="'1x'"></fa-icon>
+                            </span>
+                        </ng-container>
+                    </td>
+                </ng-container>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="!helpers.isFilledArray(dataSource)">
+            <tr>
+                <td [colSpan]="config.columns.length">{{ 'message.err_no_data' | translate }}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

@@ -1,14 +1,14 @@
 import { saveAuthStateAction } from './auth.actions';
 import { createReducer, on } from '@ngrx/store';
-import { UserEntity } from 'src/entities';
+import { UserEntity } from 'src/app/entities';
 
 export type AuthState = {
-    /** Authenticated user, `null` if there is no login user */
+    /** Current login user, `null` if there is no login user */
     current_user: (UserEntity & { access_token: string }) | null;
 };
 
 export const initialAuthState: AuthState = {
-    current_user: null,
+    current_user: null
 };
 
 export const authReducer = createReducer(
@@ -17,7 +17,7 @@ export const authReducer = createReducer(
         saveAuthStateAction,
         (state, action): AuthState => ({
             ...state,
-            current_user: { ...action.payload },
+            current_user: { ...action.payload }
         })
     )
 );

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs';
 import { CONSTANTS, Helpers } from 'src/app/utils';
-import { UserEntity } from 'src/entities';
+import { UserEntity } from 'src/app/entities';
 import { AuthActionTypes } from './auth.actions';
 
 @Injectable()

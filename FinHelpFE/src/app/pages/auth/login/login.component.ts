@@ -6,26 +6,20 @@ import { AppToastService } from 'src/app/components/app-toast/app-toast.service'
 import PageComponent from 'src/app/includes/page.component';
 import { AuthService } from 'src/app/services';
 import UserValidator from 'src/app/validators/user.validator';
-import { UserEntity } from 'src/entities';
 import { Md5 } from 'ts-md5';
 import { saveAuthStateAction } from './../../../store/auth/auth.actions';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends PageComponent {
-    public validator = new UserValidator(this._translate);
+    public validator = new UserValidator(this._translate$);
     public form = this.validator.getLoginForm();
 
-    public currentUser: UserEntity & { access_token: string } = {
-        ...new UserEntity(),
-        access_token: '',
-    };
-
     /** Constructor */
-    constructor(private _translate: TranslateService, private _auth$: AuthService, private _toast$: AppToastService, private store: Store, private _router: Router) {
+    constructor(private _translate$: TranslateService, private _auth$: AuthService, private _toast$: AppToastService, private store: Store, private _router: Router) {
         super();
     }
 
@@ -34,7 +28,7 @@ export class LoginComponent extends PageComponent {
      */
     public onSubmit() {
         this.form.clearControlErrorMessages();
-        if (!this.form.valid || !this.Helpers.isString(this.form.value.username) || !this.Helpers.isString(this.form.value.password)) {
+        if (!this.form.valid || !this.helpers.isString(this.form.value.username) || !this.helpers.isString(this.form.value.password)) {
             this.form.setControlErrorMessages();
             return;
         }
@@ -46,14 +40,15 @@ export class LoginComponent extends PageComponent {
                     return;
                 }
 
-                const errMsg = this._translate.instant(`message.${result.message}`) as string;
+                const errMsg = this._translate$.instant(`message.${result.message}`) as string;
                 this._toast$.error(errMsg);
                 return;
             }
 
             this.store.dispatch(saveAuthStateAction({ payload: result.data }));
 
-            void this._router.navigate([this.ROUTES.DASHBOARD]);
+            const tagListRoute = `${this.ROUTES.TAG.MODULE}/${this.ROUTES.TAG.LIST}`;
+            void this._router.navigate([tagListRoute]);
         });
     }
 }

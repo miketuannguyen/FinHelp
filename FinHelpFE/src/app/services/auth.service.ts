@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { UserEntity } from 'src/entities';
+import { UserEntity } from 'src/app/entities';
 import { APIResponse, API_ROUTES, BaseHTTPClient, CONSTANTS } from '../utils';
 import { HTTPOptions } from '../utils/http';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export default class AuthService {
     /** Constructor */
@@ -32,12 +32,5 @@ export default class AuthService {
                 return of(APIResponse.error(CONSTANTS.ERR_INTERNAL_SERVER_ERROR));
             })
         );
-    }
-
-    /**
-     * Get access token
-     */
-    public getAccessToken() {
-        return localStorage.getItem('access_token') || '';
     }
 }

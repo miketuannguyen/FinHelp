@@ -3,12 +3,15 @@
         <div class="row">
             <div class="col-md-3 col-lg-4"></div>
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card login-form">
-                    <div class="card-header login-header">
-                        <h3 class="login-title">{{ 'app_name' | translate }}</h3>
+                <div class="card login__form">
+                    <div class="card-header login__header">
+                        <h3 class="login__title">{{ 'app_name' | translate }}</h3>
                     </div>
                     <div class="card-body">
-                        <form id="loginForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <form
+                            id="loginForm"
+                            [formGroup]="form"
+                            (ngSubmit)="onSubmit()">
                             <div class="row">
                                 <div class="col-12">
                                     <app-form-input-wrapper
@@ -41,7 +44,11 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12">
-                                    <button type="submit" class="btn app-primary-button">{{ 'label.submit' | translate }}</button>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary">
+                                        {{ 'label.submit' | translate }}
+                                    </button>
                                 </div>
                             </div>
                         </form>

@@ -11,9 +11,11 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ComponentModule } from './components/component.module';
 import { AppInitFactory, HttpLoaderFactory } from './includes/translation.config';
+import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { AppCommonModule } from './pages/common/common.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { TagModule } from './pages/tag/tag.module';
 import { reducers } from './store/app.states';
 import { AuthEffects } from './store/auth/auth.effects';
 
@@ -23,7 +25,7 @@ import { AuthEffects } from './store/auth/auth.effects';
         BrowserModule,
         RouterModule.forRoot([], {
             onSameUrlNavigation: 'reload',
-            anchorScrolling: 'enabled',
+            anchorScrolling: 'enabled'
         }),
         NgbModule,
         HttpClientModule,
@@ -31,25 +33,27 @@ import { AuthEffects } from './store/auth/auth.effects';
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
-                deps: [HttpClient],
-            },
+                deps: [HttpClient]
+            }
         }),
         DashboardModule,
         AuthModule,
+        TagModule,
         ComponentModule,
         AppCommonModule,
+        LayoutModule,
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([AuthEffects]),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.mode === 'PROD' }),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.mode === 'PROD' })
     ],
     providers: [
         {
             provide: APP_INITIALIZER,
             useFactory: AppInitFactory,
             deps: [TranslateService],
-            multi: true,
-        },
+            multi: true
+        }
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

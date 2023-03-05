@@ -94,7 +94,6 @@
                     }
                 ],
                 "@typescript-eslint/no-explicit-any": "warn",
-                "@typescript-eslint/no-parameter-properties": ["warn", { "allows": ["public", "private", "protected"] }],
                 "@typescript-eslint/no-shadow": ["error"],
                 "@typescript-eslint/no-unnecessary-condition": "off",
                 "@typescript-eslint/prefer-nullish-coalescing": "off",
@@ -116,6 +115,14 @@
                 "tsdoc/syntax": "error",
                 "keyword-spacing": "error",
                 "block-spacing": "error",
+                "key-spacing": "error",
+                "space-before-blocks": "error",
+                "no-alert": "error",
+                "no-useless-return": "error",
+                "no-else-return": "error",
+                "no-trailing-spaces": "error",
+                "comma-dangle": "error",
+                "comma-spacing": "error",
                 "@typescript-eslint/ban-types": [
                     "error",
                     {
@@ -125,7 +132,8 @@
                         "extendDefaults": true
                     }
                 ],
-                "@ngrx/prefer-effect-callback-in-block-statement": "off"
+                "@ngrx/prefer-effect-callback-in-block-statement": "off",
+                "no-return-assign": "error"
             }
         },
         {

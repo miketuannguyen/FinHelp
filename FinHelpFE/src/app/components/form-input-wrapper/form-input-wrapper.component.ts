@@ -3,8 +3,7 @@ import BaseComponent from 'src/app/includes/base.component';
 
 @Component({
     selector: 'app-form-input-wrapper',
-    templateUrl: './form-input-wrapper.component.html',
-    styleUrls: ['./form-input-wrapper.component.scss'],
+    templateUrl: './form-input-wrapper.component.html'
 })
 export class FormInputWrapperComponent extends BaseComponent {
     /** Input label */

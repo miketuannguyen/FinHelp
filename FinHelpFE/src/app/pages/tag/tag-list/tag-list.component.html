@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="page-title">{{ 'label.tag_list' | translate }}</div>
+    <div class="row">
+        <div class="col-12">
+            <form [formGroup]="form">
+                <div class="input-group">
+                    <input
+                        id="keyword"
+                        formControlName="keyword"
+                        type="keyword"
+                        class="form-control border-end-0"
+                        placeholder="{{ 'label.keyword_input_placeholder' | translate }}" />
+                    <button class="btn form-control__tail-icon">
+                        <fa-icon
+                            [icon]="icons.solid.faSearch"
+                            [size]="'xs'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 mt-3 d-flex align-items-center">
+            <div class="total-text">
+                {{ 'label.total_data_row' | translate }}:
+                <div class="total-text__num">{{ dataTotal }}</div>
+            </div>
+        </div>
+        <div class="col-6 mt-3 d-flex justify-content-end">
+            <button
+                class="btn btn-primary"
+                (click)="onCreate()">
+                {{ 'label.create' | translate }}
+                <fa-icon
+                    [icon]="icons.solid.faPlus"
+                    [size]="'sm'"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 overflow-x-auto">
+            <app-smart-table
+                [config]="tableConfig"
+                [dataSource]="dataList"></app-smart-table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <ngb-pagination
+                [page]="page"
+                [pageSize]="CONSTANTS.PAGE_SIZE"
+                [collectionSize]="dataTotal"
+                (pageChange)="onPageChanged($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

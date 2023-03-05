@@ -1,0 +1,51 @@
+@import 'custom.scss';
+
+.user-icon__container {
+    height: 40px;
+    width: 40px;
+    border: solid 2px #000;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.user-name {
+    margin-bottom: 0;
+}
+
+.offcanvas-header--shadow-relative {
+    position: relative;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(41, 42, 47, 0.15);
+}
+
+.close-btn {
+    cursor: pointer;
+}
+
+.menu-item {
+    height: 40px;
+    color: gray;
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+    }
+
+    &--active {
+        background-color: rgba($primary, .8);
+        color: black;
+        border-radius: 10px;
+        height: 50px;
+    }
+}

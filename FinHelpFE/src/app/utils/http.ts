@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as qs from 'qs';
 import { catchError, finalize, Observable, throwError, timeout } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import APIResponse from './api-response';
+import { APIResponse } from './api-response';
 import { CONSTANTS } from './constants';
 import Helpers from './helpers';
 
@@ -36,7 +36,7 @@ export class HTTPOptions {
  * ```
  */
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class BaseHTTPClient {
     /** Constructor */
@@ -59,7 +59,7 @@ export class BaseHTTPClient {
             .get<APIResponse<T>>(url, {
                 ...opts,
                 responseType: 'json',
-                observe: 'response',
+                observe: 'response'
             })
             .pipe(
                 timeout(opts.requestTimeout),
@@ -69,6 +69,7 @@ export class BaseHTTPClient {
                 })
             );
     }
+
     /**
      * Construct a POST request to API
      * @param route - API route, `environment.api_url` is prepended to this, first `/` is not needed
@@ -84,7 +85,7 @@ export class BaseHTTPClient {
             .post<APIResponse<T>>(url, body, {
                 ...opts,
                 responseType: 'json',
-                observe: 'response',
+                observe: 'response'
             })
             .pipe(
                 timeout(opts.requestTimeout),
@@ -110,7 +111,7 @@ export class BaseHTTPClient {
             .put<APIResponse<T>>(url, body, {
                 ...opts,
                 responseType: 'json',
-                observe: 'response',
+                observe: 'response'
             })
             .pipe(
                 timeout(opts.requestTimeout),
@@ -135,7 +136,7 @@ export class BaseHTTPClient {
             .delete<APIResponse<T>>(url, {
                 ...opts,
                 responseType: 'json',
-                observe: 'response',
+                observe: 'response'
             })
             .pipe(
                 timeout(opts.requestTimeout),

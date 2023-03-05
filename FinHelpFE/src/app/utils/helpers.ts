@@ -1,3 +1,5 @@
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
 export default class Helpers {
     /**
      * Make all properties of an object immutable including nested objects
@@ -102,5 +104,25 @@ export default class Helpers {
     public static removeAccessToken() {
         // can't use CONSTANTS here because CONSTANTS needs Helpers to be initialized first
         return localStorage.removeItem('finhelp_access_token');
+    }
+
+    /**
+     * Get common options to open modal
+     * @param customOpts - custom options, added to the common options
+     * @returns common options (added `customOpts`)
+     */
+    public static getOpenModalCommonOptions(customOpts?: NgbModalOptions) {
+        const commonOpts: NgbModalOptions = {
+            centered: true,
+            size: 'lg',
+            backdrop: 'static',
+            keyboard: false
+        };
+
+        if (customOpts) {
+            Object.assign(commonOpts, customOpts);
+        }
+
+        return commonOpts;
     }
 }
