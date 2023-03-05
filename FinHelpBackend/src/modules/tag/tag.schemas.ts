@@ -8,8 +8,8 @@ export const saveSchema = Joi.object<{
         'string.base': 'required',
         'string.empty': 'required',
         'string.min': 'minlength',
-        'string.max': 'maxlength',
-    }),
+        'string.max': 'maxlength'
+    })
 }).options({
-    abortEarly: false,
+    abortEarly: false
 }).unknown(true);

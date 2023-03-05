@@ -17,7 +17,7 @@ import { RepositoryModule } from './repository/repository.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true,
+            isGlobal: true
         }),
         MiddlewareModule,
         RepositoryModule,
@@ -34,22 +34,22 @@ import { RepositoryModule } from './repository/repository.module';
                 username: configService.get('MYSQL_USERNAME'),
                 password: configService.get('MYSQL_PASSWORD'),
                 database: configService.get('MYSQL_DATABASE'),
-                autoLoadEntities: true,
-            }),
+                autoLoadEntities: true
+            })
         }),
-        LoggerModule,
+        LoggerModule
     ],
     controllers: [],
     providers: [
         {
             provide: APP_FILTER,
-            useClass: NotFoundExceptionFilter,
+            useClass: NotFoundExceptionFilter
         },
         {
             provide: APP_FILTER,
-            useClass: ValidationExceptionFilter,
-        },
-    ],
+            useClass: ValidationExceptionFilter
+        }
+    ]
 })
 export class AppModule {
     /**

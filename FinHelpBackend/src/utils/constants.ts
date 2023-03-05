@@ -6,10 +6,12 @@ const CONSTANTS = {
     ENVIRONMENTS: {
         DEV: 'DEV',
         STAG: 'STAG',
-        PROD: 'PROD',
+        PROD: 'PROD'
     },
     /** 10 years */
     ACCESS_TOKEN_EXPIRED_TIME: 315360000,
+    /** Total items per page  */
+    ITEM_COUNT_PER_PAGE: 20
 } as const;
 Helpers.deepFreeze(CONSTANTS);
 

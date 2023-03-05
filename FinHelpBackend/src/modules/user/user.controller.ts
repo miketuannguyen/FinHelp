@@ -4,7 +4,7 @@ import { TagDTO, UserDTO } from 'src/dtos';
 import { BaseController } from 'src/includes';
 import { ValidationPipe } from 'src/pipes';
 import { APIListResponse, APIResponse, Helpers, MESSAGES } from 'src/utils';
-import { AuthenticatedRequest } from 'src/utils/types';
+import { AuthenticatedRequest, CommonSearchQuery } from 'src/utils/types';
 import ROUTES from '../routes';
 import * as TagSchemas from '../tag/tag.schemas';
 import { TagService } from '../tag/tag.service';
@@ -50,18 +50,20 @@ export class UserController extends BaseController {
     public async getTagListOfUser(
         @Req() req: AuthenticatedRequest,
         @Res() res: Response<APIListResponse<TagDTO>>,
-        @Query() query: {
-            keyword: string
-        }
+        @Query() query: CommonSearchQuery
     ) {
         try {
-            const tagDTOList = await this._tagService.getListOfUser(req.userPayload.username, query);
-            if (!Helpers.isFilledArray(tagDTOList)) {
-                const errRes = APIListResponse.error(MESSAGES.ERROR.ERR_NO_DATA);
-                return res.status(HttpStatus.BAD_REQUEST).json(errRes);
+            const total = await this._tagService.getTotalOfUser(req.userPayload.username, query);
+            let list: TagDTO[] = [];
+            if (total > 0) {
+                list = await this._tagService.getListOfUser(req.userPayload.username, query);
+                if (!Helpers.isFilledArray(list)) {
+                    const errRes = APIListResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
+                    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
+                }
             }
 
-            const successRes = APIListResponse.success<TagDTO>(MESSAGES.SUCCESS.SUCCESS, tagDTOList);
+            const successRes = APIListResponse.success<TagDTO>(MESSAGES.SUCCESS.SUCCESS, list, total);
             return res.status(HttpStatus.OK).json(successRes);
         } catch (e) {
             this._logger.error(this.getTagListOfUser.name, e);
@@ -147,15 +149,15 @@ export class UserController extends BaseController {
      * @param res - newly updated tag DTO
      */
     @Put(`${ROUTES.TAG.MODULE}/:id`)
-    @UsePipes(new ValidationPipe(TagSchemas.saveSchema))
+    // @UsePipes(new ValidationPipe(TagSchemas.saveSchema))
     public async updateTagOfUser(
         @Param('id') id: number,
-        @Body() body: {
+        @Body(new ValidationPipe(TagSchemas.saveSchema)) body: {
             name: string;
             desc: string;
         },
         @Req() req: AuthenticatedRequest,
-        @Res() res: Response<APIResponse<TagDTO | undefined>>,
+        @Res() res: Response<APIResponse<TagDTO | undefined>>
     ) {
         try {
             const tag = await this._tagService.getById(id);
@@ -196,7 +198,7 @@ export class UserController extends BaseController {
     public async deleteTagOfUser(
         @Param('id') id: number,
         @Req() req: AuthenticatedRequest,
-        @Res() res: Response<APIResponse<TagDTO | undefined>>,
+        @Res() res: Response<APIResponse<TagDTO | undefined>>
     ) {
         try {
             const tag = await this._tagService.getById(id);

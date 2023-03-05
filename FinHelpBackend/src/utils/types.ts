@@ -30,3 +30,10 @@ export type AuthenticatedRequest<
         exp?: number;
     };
 };
+
+export type CommonSearchQuery = {
+    /** Search keyword */
+    keyword?: string,
+    /** Page number, start with `1`, set `0` to get all */
+    page?: number
+}

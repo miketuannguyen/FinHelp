@@ -3,15 +3,15 @@ import { Helpers } from 'src/utils';
 const ROUTES = {
     AUTH: {
         MODULE: 'auth',
-        LOGIN: 'login',
+        LOGIN: 'login'
     },
     USER: {
         MODULE: 'user',
-        PROFILE: 'profile',
+        PROFILE: 'profile'
     },
     TAG: {
-        MODULE: 'tag',
-    },
+        MODULE: 'tag'
+    }
 } as const;
 Helpers.deepFreeze(ROUTES);
 

@@ -43,7 +43,7 @@ export class APIListResponse<T> {
     /** Response list data */
     public data = {
         list: [] as T[],
-        total: 0,
+        total: 0
     };
 
     /**

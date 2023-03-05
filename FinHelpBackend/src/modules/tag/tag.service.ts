@@ -3,7 +3,8 @@ import { TagDTO } from 'src/dtos';
 import { TagEntity } from 'src/entities';
 import { BaseService } from 'src/includes';
 import { TagRepository } from 'src/repository/tag.repository';
-import { Helpers, mapper } from 'src/utils';
+import { CONSTANTS, Helpers, mapper } from 'src/utils';
+import { CommonSearchQuery } from 'src/utils/types';
 
 @Injectable()
 export class TagService extends BaseService {
@@ -15,12 +16,11 @@ export class TagService extends BaseService {
     /**
      * Get tag list of user
      * @param username - `m_users.username`
+     * @param params - search params
      */
     public async getListOfUser(
         username: string,
-        searchParams?: {
-            keyword?: string,
-        },
+        params?: CommonSearchQuery
     ): Promise<TagDTO[] | null> {
         if (!Helpers.isString(username)) return null;
 
@@ -28,17 +28,52 @@ export class TagService extends BaseService {
             .createQueryBuilder('d_tags')
             .where('d_tags.username = :username AND d_tags.is_deleted = 0', { username });
 
-        if (Helpers.isString(searchParams?.keyword)) {
+        if (Helpers.isString(params?.keyword)) {
+            const keyword = String(params?.keyword);
             const queryParams = {
-                keyword: `%${searchParams.keyword}%`
+                keyword: `%${keyword}%`
             };
             query.andWhere('d_tags.name LIKE :keyword OR d_tags.desc LIKE :keyword', queryParams);
+        }
+
+        if (params?.page > 0) {
+            const page = Number(params?.page);
+            const skip = (page - 1) * CONSTANTS.ITEM_COUNT_PER_PAGE;
+            query.skip(skip).take(CONSTANTS.ITEM_COUNT_PER_PAGE);
         }
 
         const tagEntityList = await query.getMany();
         if (!Helpers.isFilledArray(tagEntityList)) return null;
 
         return tagEntityList.map((tag) => mapper.map(tag, TagEntity, TagDTO));
+    }
+
+    /**
+     * Get tag total number of user
+     * @param username - `m_users.username`
+     * @param params - search params
+     */
+    public async getTotalOfUser(
+        username: string,
+        params?: {
+            keyword?: string
+        }
+    ): Promise<number> {
+        if (!Helpers.isString(username)) return 0;
+
+        const query = this._tagRepo
+            .createQueryBuilder('d_tags')
+            .where('d_tags.username = :username AND d_tags.is_deleted = 0', { username });
+
+        if (Helpers.isString(params?.keyword)) {
+            const keyword = String(params?.keyword);
+            const queryParams = {
+                keyword: `%${keyword}%`
+            };
+            query.andWhere('d_tags.name LIKE :keyword OR d_tags.desc LIKE :keyword', queryParams);
+        }
+
+        return query.getCount();
     }
 
     /**

@@ -9,7 +9,7 @@ import AppLogger from './logger/logger';
  */
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
-        bufferLogs: true,
+        bufferLogs: true
     });
     app.enableCors();
 

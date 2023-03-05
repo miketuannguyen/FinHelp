@@ -4,6 +4,6 @@ import { RepositoryModule } from 'src/repository/repository.module';
 
 @Module({
     imports: [RepositoryModule],
-    providers: [AuthService],
+    providers: [AuthService]
 })
 export class MiddlewareModule {}
