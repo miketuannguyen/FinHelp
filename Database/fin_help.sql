@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 01, 2022 at 04:12 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th3 05, 2023 lúc 10:46 AM
+-- Phiên bản máy phục vụ: 10.4.21-MariaDB
+-- Phiên bản PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,29 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fin_help`
+-- Cơ sở dữ liệu: `fin_help`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_users`
+-- Cấu trúc bảng cho bảng `d_tags`
+--
+
+CREATE TABLE `d_tags` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `desc` varchar(255) DEFAULT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `m_users`
 --
 
 CREATE TABLE `m_users` (
@@ -37,7 +53,7 @@ CREATE TABLE `m_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `m_users`
+-- Đang đổ dữ liệu cho bảng `m_users`
 --
 
 INSERT INTO `m_users` (`username`, `password`, `name`, `is_active`, `created_date`, `updated_date`) VALUES
@@ -45,14 +61,30 @@ INSERT INTO `m_users` (`username`, `password`, `name`, `is_active`, `created_dat
 ('nhoknguyen00', '202cb962ac59075b964b07152d234b70', 'Mike Tuấn Nguyên', 1, '2022-09-19 21:15:30', '2022-10-09 22:52:20');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `m_users`
+-- Chỉ mục cho bảng `d_tags`
+--
+ALTER TABLE `d_tags`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Chỉ mục cho bảng `m_users`
 --
 ALTER TABLE `m_users`
   ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `d_tags`
+--
+ALTER TABLE `d_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
