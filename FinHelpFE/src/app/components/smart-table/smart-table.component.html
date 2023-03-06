@@ -53,7 +53,7 @@
         </ng-container>
         <ng-container *ngIf="!helpers.isFilledArray(dataSource)">
             <tr>
-                <td [colSpan]="config.columns.length">{{ 'message.err_no_data' | translate }}</td>
+                <td [colSpan]="config.columns.length + (helpers.isFilledArray(config.actions) ? 1 : 0)">{{ 'message.err_no_data' | translate }}</td>
             </tr>
         </ng-container>
     </tbody>
