@@ -25,6 +25,6 @@ async function bootstrap() {
     await app.listen(port);
 
     const mainLogger = new AppLogger('main');
-    mainLogger.info('=========== FinHelpBackend start =========== ');
+    mainLogger.info('=========== FinHelpAPI start =========== ');
 }
 void bootstrap();
