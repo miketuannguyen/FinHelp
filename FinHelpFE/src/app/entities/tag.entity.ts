@@ -7,7 +7,7 @@ export default class TagEntity {
     /** d_tags.name */
     public name = '';
     /** d_tags.desc */
-    public desc = '';
+    public desc?: string;
     /** d_tags.is_deleted */
     public is_deleted: 0 | 1 = 0;
     /** d_tags.created_date */

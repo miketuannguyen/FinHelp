@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import * as brandIcons from '@fortawesome/free-brands-svg-icons';
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
 import * as solidIcons from '@fortawesome/free-solid-svg-icons';
@@ -19,12 +20,7 @@ export default class BaseComponent {
     };
     // ========== [END] View utilities [END] ==========
 
-    private _modalService?: NgbModal;
-
-    /** Constructor */
-    constructor(modal$?: NgbModal) {
-        this._modalService = modal$;
-    }
+    private _baseModal$? = inject(NgbModal);
 
     /**
      * Show confirm modal
@@ -40,8 +36,8 @@ export default class BaseComponent {
             confirmEvent: (isConfirmed: boolean) => void;
         }
     ) {
-        if (this._modalService) {
-            const modal = this._modalService.open(ConfirmModalComponent, { centered: true });
+        if (this._baseModal$) {
+            const modal = this._baseModal$.open(ConfirmModalComponent, { centered: true });
             const component = modal.componentInstance as ConfirmModalComponent;
             component.message = msg;
             component.confirmEvent.subscribe(config.confirmEvent);

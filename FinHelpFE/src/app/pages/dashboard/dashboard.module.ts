@@ -9,12 +9,12 @@ const routes: Routes = [
     {
         path: ROUTES.DASHBOARD,
         component: DashboardComponent,
-        canActivate: [AuthGuard],
-    },
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
     declarations: [DashboardComponent],
-    imports: [RouterModule.forChild(routes), SharedModule],
+    imports: [RouterModule.forChild(routes), SharedModule]
 })
 export class DashboardModule {}

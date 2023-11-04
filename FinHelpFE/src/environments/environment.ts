@@ -4,7 +4,7 @@
 
 export const environment = {
     mode: 'DEV' as 'DEV' | 'STAG' | 'PROD',
-    api_url: 'http://localhost:3000',
+    api_url: 'http://localhost:3000'
 };
 
 /*

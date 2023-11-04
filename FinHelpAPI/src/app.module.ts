@@ -8,7 +8,8 @@ import { LoggerModule } from './logger/logger.module';
 import { AuthMiddleware } from './middleware';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { TagController } from './modules/tag/tag.controller';
+import { IETagModule } from './modules/ie-tag/ie-tag.module';
+import { IEModule } from './modules/ie/ie.module';
 import { TagModule } from './modules/tag/tag.module';
 import { UserController } from './modules/user/user.controller';
 import { UserModule } from './modules/user/user.module';
@@ -24,6 +25,8 @@ import { RepositoryModule } from './repository/repository.module';
         AuthModule,
         UserModule,
         TagModule,
+        IEModule,
+        IETagModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
@@ -56,6 +59,6 @@ export class AppModule {
      * Configure middlewares
      */
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes(UserController, TagController);
+        consumer.apply(AuthMiddleware).forRoutes(UserController);
     }
 }

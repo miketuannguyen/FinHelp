@@ -12,7 +12,7 @@ import TagValidator from 'src/app/validators/tag.validator';
     templateUrl: './tag-save.component.html'
 })
 export class TagSaveComponent extends BaseComponent implements OnInit {
-    public validator = new TagValidator(this._translate$);
+    public validator = new TagValidator();
     public form = this.validator.getCreatingTagForm();
 
     public item = new TagEntity();
@@ -28,7 +28,7 @@ export class TagSaveComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         if (this.item.id > 0) {
             this.form.controls.name.setValue(this.item.name);
-            this.form.controls.desc.setValue(this.item.desc);
+            this.form.controls.desc.setValue(this.item.desc || '');
         }
     }
 

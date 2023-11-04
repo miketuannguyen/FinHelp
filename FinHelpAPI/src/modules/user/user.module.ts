@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
-import { UserRepository } from 'src/repository';
+import { IERepository, TagRepository, UserRepository } from 'src/repository';
+import { IEService } from '../ie/ie.service';
 import { TagService } from '../tag/tag.service';
-import { TagRepository } from 'src/repository/tag.repository';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 
 @Module({
     controllers: [UserController],
-    providers: [UserService, UserRepository, TagService, TagRepository]
+    providers: [UserService, UserRepository, TagService, TagRepository, IEService, IERepository]
 })
 export class UserModule {}

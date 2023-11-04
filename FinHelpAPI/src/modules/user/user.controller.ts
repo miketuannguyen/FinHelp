@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Req, Res, UsePipes } from '@nestjs/common';
 import { Response } from 'express';
-import { TagDTO, UserDTO } from 'src/dtos';
+import { CreateIEDTO, CreateIEReqBody, TagDTO, UserDTO } from 'src/dtos';
 import { BaseController } from 'src/includes';
 import { ValidationPipe } from 'src/pipes';
 import { APIListResponse, APIResponse, Helpers, MESSAGES } from 'src/utils';
 import { AuthenticatedRequest, CommonSearchQuery } from 'src/utils/types';
+import * as IESchemas from '../ie/ie.schemas';
+import { IEService } from '../ie/ie.service';
 import ROUTES from '../routes';
 import * as TagSchemas from '../tag/tag.schemas';
 import { TagService } from '../tag/tag.service';
@@ -13,7 +15,11 @@ import { UserService } from './user.service';
 @Controller(ROUTES.USER.MODULE)
 export class UserController extends BaseController {
     /** Constructor */
-    constructor(private readonly _userService: UserService, private readonly _tagService: TagService) {
+    constructor(
+        private readonly _userService: UserService,
+        private readonly _tagService: TagService,
+        private readonly _ieService: IEService
+    ) {
         super();
     }
 
@@ -126,7 +132,7 @@ export class UserController extends BaseController {
             tag.name = body.name;
             tag.desc = body.desc;
 
-            const newTag = await this._tagService.createTag(tag);
+            const newTag = await this._tagService.create(tag);
             if (Helpers.isEmptyObject(newTag)) {
                 const errRes = APIResponse.error<undefined>(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
                 return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
@@ -173,7 +179,7 @@ export class UserController extends BaseController {
             tag.name = body.name;
             tag.desc = body.desc;
 
-            const updatedTag = await this._tagService.updateTag(tag);
+            const updatedTag = await this._tagService.update(tag);
             if (!updatedTag) {
                 const errRes = APIResponse.error<undefined>(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
                 return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
@@ -221,6 +227,63 @@ export class UserController extends BaseController {
             return res.status(HttpStatus.OK).json(successRes);
         } catch (e) {
             this._logger.error(this.deleteTagOfUser.name, e);
+            const errRes = APIResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
+        }
+    }
+
+    /**
+     * Batch create i&e of user
+     * @param req - authenticated request
+     * @param res - created i&e DTO list
+     * @param body - i&e list with tag id list
+     */
+    @Post(ROUTES.I_E.MODULE)
+    @UsePipes(new ValidationPipe(IESchemas.saveSchema, true))
+    public async batchCreateIEOfUser(
+        @Req() req: AuthenticatedRequest,
+        @Res() res: Response<APIResponse<CreateIEDTO[]>>,
+        @Body() body: CreateIEReqBody[]
+    ) {
+        try {
+            // tag id list must not be empty
+            const tagIdList = body.reduce((preValue, curItem) => [...preValue, ...curItem.tag_id_list], [] as number[]);
+            if (!Helpers.isFilledArray) {
+                const errRes = APIResponse.error<undefined>(MESSAGES.ERROR.ERR_BAD_REQUEST);
+                return res.status(HttpStatus.BAD_GATEWAY).json(errRes);
+            }
+
+            // all tag ids must exist in the database
+            const uniqueTagIdList = [...new Set(tagIdList)];
+            const tagList = await this._tagService.getByIdList(uniqueTagIdList);
+            if (!Helpers.isFilledArray(tagList) || tagList.length !== uniqueTagIdList.length) {
+                const errRes = APIResponse.error<undefined>(MESSAGES.ERROR.ERR_BAD_REQUEST);
+                return res.status(HttpStatus.BAD_GATEWAY).json(errRes);
+            }
+
+            const createIEDTOList = body.map((item) => {
+                const createIEDTO = new CreateIEDTO();
+                createIEDTO.id = 0;
+                createIEDTO.username = req.userPayload.username;
+                createIEDTO.amount = item.amount;
+                createIEDTO.desc = item.desc;
+                createIEDTO.is_expense = item.is_expense;
+                createIEDTO.transaction_date = item.transaction_date;
+                createIEDTO.is_deleted = 0;
+                createIEDTO.tag_id_list = item.tag_id_list;
+                return createIEDTO;
+            });
+
+            const result = await this._ieService.batchCreate(createIEDTOList);
+            if (!Helpers.isFilledArray(result)) {
+                const errRes = APIResponse.error<undefined>(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
+                return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
+            }
+
+            const successRes = APIResponse.success(MESSAGES.SUCCESS.SUCCESS, result);
+            return res.status(HttpStatus.OK).json(successRes);
+        } catch (e) {
+            this._logger.error(this.batchCreateIEOfUser.name, e);
             const errRes = APIResponse.error(MESSAGES.ERROR.ERR_INTERNAL_SERVER_ERROR);
             return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(errRes);
         }

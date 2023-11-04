@@ -15,6 +15,7 @@ import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { AppCommonModule } from './pages/common/common.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { IEModule } from './pages/ie/ie.module';
 import { TagModule } from './pages/tag/tag.module';
 import { reducers } from './store/app.states';
 import { AuthEffects } from './store/auth/auth.effects';
@@ -39,6 +40,7 @@ import { AuthEffects } from './store/auth/auth.effects';
         DashboardModule,
         AuthModule,
         TagModule,
+        IEModule,
         ComponentModule,
         AppCommonModule,
         LayoutModule,

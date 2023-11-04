@@ -1,6 +1,7 @@
 @import 'custom.scss';
 
 $tertiaryColor: #9880ff;
+$quaternaryColor: #59776f;
 $gray: #5a5c69;
 
 html {
@@ -13,7 +14,7 @@ p.app-error-message {
 }
 
 .app-loading-layer {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -23,7 +24,7 @@ p.app-error-message {
 }
 
 .app-loading {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     width: 20px;

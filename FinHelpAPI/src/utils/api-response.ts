@@ -8,6 +8,8 @@ export class APIResponse<T> {
     public data?: T;
     /** Validation error */
     public errors?: { [key: string]: string };
+    /** List of validation error */
+    public error_list?: { [key: string]: string }[];
 
     /**
      * Create a successful response
@@ -27,11 +29,12 @@ export class APIResponse<T> {
      * @param data - error data
      * @param errors - validation errors
      */
-    public static error<T = null>(message: ValueOf<typeof MESSAGES.ERROR>, data?: T, errors?: { [key: string]: string }) {
+    public static error<T = null>(message: ValueOf<typeof MESSAGES.ERROR>, data?: T, errors?: { [key: string]: string }, errorList?: { [key: string]: string }[]) {
         const res = new APIResponse<T>();
         res.message = message;
         res.data = data;
         res.errors = errors;
+        res.error_list = errorList;
         return res;
     }
 }

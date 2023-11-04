@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export default class TagDTO {
+export class TagDTO {
     @AutoMap() id: number;
     @AutoMap() username: string;
     @AutoMap() name: string;

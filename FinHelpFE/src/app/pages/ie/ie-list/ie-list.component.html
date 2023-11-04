@@ -1,0 +1,161 @@
+<div class="container-fluid">
+    <div class="page-title">{{ 'label.ie_list' | translate }}</div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <form
+                        [formGroup]="searchForm"
+                        (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-6 col-lg-4">
+                                <app-form-input-wrapper
+                                    [for]="'amount_min'"
+                                    [label]="'label.amount_min' | translate">
+                                    <input
+                                        appNumericInput
+                                        id="amount_min"
+                                        formControlName="amount_min"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="{{ 'label.amount_min' | translate }}" />
+                                </app-form-input-wrapper>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <app-form-input-wrapper
+                                    [for]="'amount_max'"
+                                    [label]="'label.amount_max' | translate">
+                                    <input
+                                        appNumericInput
+                                        id="amount_max"
+                                        formControlName="amount_max"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="{{ 'label.amount_max' | translate }}" />
+                                </app-form-input-wrapper>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2 mt-3 mt-lg-0 d-flex align-items-center">
+                                <div class="form-check me-5">
+                                    <input
+                                        id="is_expense"
+                                        formControlName="is_expense"
+                                        class="form-check-input"
+                                        type="checkbox" />
+                                    <label
+                                        class="form-check-label"
+                                        for="is_expense">
+                                        {{ 'label.is_expense' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2 mt-3 mt-lg-0 d-flex align-items-center">
+                                <div class="form-check">
+                                    <input
+                                        id="is_income"
+                                        formControlName="is_income"
+                                        class="form-check-input"
+                                        type="checkbox" />
+                                    <label
+                                        class="form-check-label"
+                                        for="is_income">
+                                        {{ 'label.is_income' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-md-6">
+                                <app-form-input-wrapper
+                                    [for]="'keyword'"
+                                    [label]="'label.keyword' | translate">
+                                    <input
+                                        id="keyword"
+                                        formControlName="keyword"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="{{ 'label.keyword_input_placeholder' | translate }}" />
+                                </app-form-input-wrapper>
+                            </div>
+                            <div class="col-12 col-md-6 mt-3 mt-md-0">
+                                <app-form-input-wrapper [label]="'label.transaction_date' | translate">
+                                    <div class="row">
+                                        <div class="col-12 d-flex align-items-baseline">
+                                            <div class="input-group w-50">
+                                                <input
+                                                    ngbDatepicker
+                                                    #transactionDateStart="ngbDatepicker"
+                                                    formControlName="transaction_date_start"
+                                                    class="form-control"
+                                                    (click)="transactionDateStart.toggle()" />
+                                                <button
+                                                    class="btn btn-outline-secondary"
+                                                    (click)="transactionDateStart.toggle()"
+                                                    type="button">
+                                                    <fa-icon
+                                                        [icon]="icons.solid.faCalendarAlt"
+                                                        [size]="'1x'"></fa-icon>
+                                                </button>
+                                            </div>
+                                            &nbsp; ~ &nbsp;
+                                            <div class="input-group w-50">
+                                                <input
+                                                    ngbDatepicker
+                                                    #transactionDateEnd="ngbDatepicker"
+                                                    formControlName="transaction_date_end"
+                                                    class="form-control"
+                                                    (click)="transactionDateEnd.toggle()" />
+                                                <button
+                                                    class="btn btn-outline-secondary"
+                                                    (click)="transactionDateEnd.toggle()"
+                                                    type="button">
+                                                    <fa-icon
+                                                        [icon]="icons.solid.faCalendarAlt"
+                                                        [size]="'1x'"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-form-input-wrapper>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary">
+                                    <fa-icon
+                                        class="me-1"
+                                        [icon]="icons.solid.faSearch"
+                                        [size]="'sm'"></fa-icon>
+                                    {{ 'label.search' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="total-text">
+                        {{ 'label.total_data_row' | translate }}:
+                        <div class="total-text__num">{{ dataTotal }}</div>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <a
+                        class="btn btn-primary"
+                        [routerLink]="'/' + ROUTES.I_E.MODULE + '/' + ROUTES.I_E.CREATE">
+                        {{ 'label.create' | translate }}
+                        <fa-icon
+                            [icon]="icons.solid.faPlus"
+                            [size]="'sm'"></fa-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

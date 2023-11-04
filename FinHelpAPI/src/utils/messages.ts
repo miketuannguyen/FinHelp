@@ -4,6 +4,8 @@ import Helpers from './helpers';
 const MESSAGES = {
     SUCCESS: {
         SUCCESS: 'success',
+        /** Used when there is no action processed by the API */
+        NO_ACTION: 'no_action'
     },
     ERROR: {
         /** "404 Not Found" error message */
@@ -17,7 +19,8 @@ const MESSAGES = {
         ERR_CREATE: 'err_create',
         ERR_NOT_FOUND: 'err_not_found',
         ERR_BAD_REQUEST: 'err_bad_request',
-    },
+        ERR_INVALID_REQUEST_BODY: 'err_invalid_request_body'
+    }
 } as const;
 
 Helpers.deepFreeze(MESSAGES);

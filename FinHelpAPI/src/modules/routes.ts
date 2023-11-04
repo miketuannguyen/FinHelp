@@ -11,6 +11,9 @@ const ROUTES = {
     },
     TAG: {
         MODULE: 'tag'
+    },
+    I_E: {
+        MODULE: 'i-e'
     }
 } as const;
 Helpers.deepFreeze(ROUTES);

@@ -1,12 +1,12 @@
 <label
     *ngIf="helpers.isString(label)"
     for="{{ for }}"
-    class="{{ class }}"
-    >{{ label }}</label
->
+    class="{{ className }}">
+    {{ label }}
+</label>
 <ng-content></ng-content>
 <p
     *ngIf="helpers.isString(errorMessage)"
-    class="app-error-message">
+    class="mt-1 app-error-message">
     {{ errorMessage }}
 </p>

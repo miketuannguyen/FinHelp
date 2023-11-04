@@ -8,7 +8,7 @@ import { UserService } from '../services';
 import { saveAuthStateAction } from '../store/auth/auth.actions';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export default class AuthGuard implements CanActivate {
     /** Constructor */
@@ -34,7 +34,7 @@ export default class AuthGuard implements CanActivate {
                 if (response.isSuccess && response.data) {
                     const payload = {
                         ...response.data,
-                        access_token: accessToken,
+                        access_token: accessToken
                     };
                     this.store.dispatch(saveAuthStateAction({ payload }));
                 }

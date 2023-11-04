@@ -2,12 +2,12 @@
     <div class="page-title">{{ 'label.tag_list' | translate }}</div>
     <div class="row">
         <div class="col-12">
-            <form [formGroup]="form">
+            <form [formGroup]="searchForm">
                 <div class="input-group">
                     <input
                         id="keyword"
                         formControlName="keyword"
-                        type="keyword"
+                        type="text"
                         class="form-control border-end-0"
                         placeholder="{{ 'label.keyword_input_placeholder' | translate }}" />
                     <button class="btn form-control__tail-icon">

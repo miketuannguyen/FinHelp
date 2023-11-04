@@ -1,10 +1,13 @@
 import { Component, HostListener } from '@angular/core';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { AppToastService } from './components/app-toast/app-toast.service';
+import { MDateParserFormatter } from './components/datepicker/date-parser-formatter';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    providers: [{ provide: NgbDateParserFormatter, useClass: MDateParserFormatter }]
 })
 export class AppComponent {
     title = 'FinHelp';

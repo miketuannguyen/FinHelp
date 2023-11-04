@@ -1,4 +1,4 @@
-import { ObjectSchema } from 'joi';
+import { AnySchema, ArraySchema, ObjectSchema } from 'joi';
 
 export default class Helpers {
     /**
@@ -70,8 +70,19 @@ export default class Helpers {
 
         const errors: { [k: string]: string } = {};
         validationResult.error.details.forEach((errItem) => {
-            if (errItem.context && Helpers.isString(errItem.context.key)) errors[errItem.context.key] = errItem.message;
+            if (errItem.context && Helpers.isString(errItem.context.key)) {
+                errors[errItem.context.key] = errItem.message;
+            }
         });
         return errors;
+    }
+
+    /**
+     * Check if a Joi schema is a `ArraySchema`
+     * @param schema - a Joi schema
+     * @returns - `schema` is a `ArraySchema` or not
+     */
+    public static isArraySchema(schema: AnySchema): schema is ArraySchema {
+        return !!(schema as ArraySchema).items;
     }
 }

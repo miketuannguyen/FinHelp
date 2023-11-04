@@ -2,7 +2,7 @@
 import { AutoMap } from '@automapper/classes';
 import { Helpers } from '../utils';
 
-export default class UserDTO {
+export class UserDTO {
     @AutoMap() username: string;
     @AutoMap() name: string;
     @AutoMap() is_active: number;

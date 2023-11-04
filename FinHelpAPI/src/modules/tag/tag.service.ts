@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TagDTO } from 'src/dtos';
 import { TagEntity } from 'src/entities';
 import { BaseService } from 'src/includes';
-import { TagRepository } from 'src/repository/tag.repository';
+import { TagRepository } from 'src/repository';
 import { CONSTANTS, Helpers, mapper } from 'src/utils';
 import { CommonSearchQuery } from 'src/utils/types';
 
@@ -43,7 +43,7 @@ export class TagService extends BaseService {
         }
 
         const tagEntityList = await query.getMany();
-        if (!Helpers.isFilledArray(tagEntityList)) return null;
+        if (!Helpers.isFilledArray(tagEntityList)) return [];
 
         return tagEntityList.map((tag) => mapper.map(tag, TagEntity, TagDTO));
     }
@@ -94,7 +94,7 @@ export class TagService extends BaseService {
      * @param tag - tag DTO
      * @returns newly created tag
      */
-    public async createTag(tag: TagDTO): Promise<TagDTO | null> {
+    public async create(tag: TagDTO): Promise<TagDTO | null> {
         if (Helpers.isEmptyObject(tag)) return null;
 
         const tagEntity = mapper.map(tag, TagDTO, TagEntity);
@@ -109,7 +109,7 @@ export class TagService extends BaseService {
      * @param tag - only name and desc are able to be updated
      * @returns newly updated tag
      */
-    public async updateTag(tag: Pick<TagDTO, 'id' | 'name' | 'desc'>): Promise<TagDTO | null> {
+    public async update(tag: Pick<TagDTO, 'id' | 'name' | 'desc'>): Promise<TagDTO | null> {
         if (Helpers.isEmptyObject(tag) || !(tag.id > 0)) return null;
 
         const tagEntity = await this.getById(tag.id);
@@ -139,5 +139,24 @@ export class TagService extends BaseService {
         await this._tagRepo.save(tagEntity);
 
         return true;
+    }
+
+    /**
+     * Get tag list by tag id list
+     * @param idList - tag id list
+     * @returns tag list, `null` if error
+     */
+    public async getByIdList(idList: number[]): Promise<TagDTO[] | null> {
+        if (!Helpers.isFilledArray(idList)) return null;
+
+        const query = this._tagRepo
+            .createQueryBuilder('d_tags')
+            .whereInIds(idList)
+            .andWhere('d_tags.is_deleted = 0');
+
+        const tagEntityList = await query.getMany();
+        if (!Helpers.isFilledArray(tagEntityList)) return [];
+
+        return tagEntityList.map((tag) => mapper.map(tag, TagEntity, TagDTO));
     }
 }

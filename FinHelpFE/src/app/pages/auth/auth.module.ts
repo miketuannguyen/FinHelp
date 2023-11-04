@@ -9,13 +9,13 @@ import { ComponentModule } from 'src/app/components/component.module';
 const routes: Routes = [
     {
         path: ROUTES.AUTH.LOGIN,
-        component: LoginComponent,
-    },
+        component: LoginComponent
+    }
 ];
 
 @NgModule({
     declarations: [LoginComponent],
     imports: [RouterModule.forChild(routes), SharedModule, ComponentModule],
-    providers: [UserService],
+    providers: [UserService]
 })
 export class AuthModule {}

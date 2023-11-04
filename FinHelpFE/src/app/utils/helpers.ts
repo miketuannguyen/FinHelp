@@ -1,4 +1,5 @@
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import * as dayjs from 'dayjs';
 
 export default class Helpers {
     /**
@@ -124,5 +125,56 @@ export default class Helpers {
         }
 
         return commonOpts;
+    }
+
+    /**
+     * Convert `Date` to `NgbDate`
+     * @param date - a `Date` instance
+     * @returns `NgbDate` instance
+     */
+    public static convertDateToNgbDate(date: Date): NgbDate {
+        return new NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    }
+
+    /**
+     * Convert `NgbDate` to `Date`
+     * @param date - a `NgbDate` instance
+     * @returns `Date` instance
+     */
+    public static convertNgbDateToDate(date: NgbDateStruct): Date {
+        const result = new Date();
+        result.setDate(date.day);
+        result.setMonth(date.month - 1);
+        result.setFullYear(date.year);
+        return result;
+    }
+
+    /**
+     * Get the string which is the formatted number
+     * @param num - any number
+     * @returns formatted number
+     */
+    static formatNumber(num: number): string {
+        if (!num) return '0';
+        const _moneyAmount = parseFloat(`${num}`);
+        return new Intl.NumberFormat('en-US').format(_moneyAmount);
+    }
+
+    /**
+     * Check if `value` is not null and not undefined
+     * @returns `true` if `value` is not null and not undefined
+     */
+    static isDefined<T>(value: T | null | undefined): value is T {
+        return value !== null && typeof value !== 'undefined';
+    }
+
+    /**
+     * Format date
+     * @param date - date input
+     * @param toFormat - the designated format
+     * @returns formatted date string
+     */
+    static formatDate(date: Date | string | number, toFormat = 'DD/MM/YYYY') {
+        return dayjs(date).format(toFormat);
     }
 }

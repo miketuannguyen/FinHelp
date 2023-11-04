@@ -13,7 +13,7 @@ export class FormInputWrapperComponent extends BaseComponent {
     @Input() for = '';
 
     /** CSS class of the child input, `form-label` by default */
-    @Input() class = 'form-label';
+    @Input() className = 'form-label';
 
     /** Error message of the child input */
     @Input() public errorMessage?: string;

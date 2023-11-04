@@ -24,7 +24,8 @@
                         formControlName="name"
                         type="text"
                         class="form-control"
-                        placeholder="{{ 'label.name' | translate }}" />
+                        placeholder="{{ 'label.name' | translate }}"
+                        [maxlength]="validator.NAME_MAX_LENGTH" />
                 </app-form-input-wrapper>
             </div>
         </div>

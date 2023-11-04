@@ -1,13 +1,19 @@
 import { FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { AppFormGroup } from '../utils';
+import { BaseValidator } from './base.validator';
+import { inject } from '@angular/core';
 
-export default class TagValidator {
-    public static readonly NAME_MIN_LENGTH = 3;
-    public static readonly NAME_MAX_LENGTH = 100;
+export default class TagValidator extends BaseValidator {
+    public readonly NAME_MIN_LENGTH = 3;
+    public readonly NAME_MAX_LENGTH = 100;
+
+    private _translate$ = inject(TranslateService);
 
     /** Constructor */
-    constructor(private _translate$: TranslateService) {}
+    constructor() {
+        super();
+    }
 
     /**
      * Get creating tag form group
@@ -27,12 +33,12 @@ export default class TagValidator {
                 ),
                 minlength: String(
                     this._translate$.instant('validation.minlength', {
-                        num: TagValidator.NAME_MIN_LENGTH
+                        num: this.NAME_MIN_LENGTH
                     })
                 ),
                 maxlength: String(
                     this._translate$.instant('validation.maxlength', {
-                        num: TagValidator.NAME_MAX_LENGTH
+                        num: this.NAME_MAX_LENGTH
                     })
                 )
             }

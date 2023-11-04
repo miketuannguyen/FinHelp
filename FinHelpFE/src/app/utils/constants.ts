@@ -23,6 +23,11 @@ const ROUTES = {
     TAG: {
         MODULE: 'tag',
         LIST: ''
+    },
+    I_E: {
+        MODULE: 'i-e',
+        LIST: '',
+        CREATE: 'create'
     }
 } as const;
 Helpers.deepFreeze(ROUTES);
